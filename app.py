@@ -8,7 +8,7 @@ from flask_login import login_user, logout_user, current_user
 from config import app, db, app_key, app_secret, bcrypt, login_manager
 
 
-locale.setlocale(locale.LC_ALL, 'pt_BR.utf-8')
+locale.setlocale(locale.LC_ALL, 'C.UTF-8')
 
 #============URL DE SISTEMA=============#
 
