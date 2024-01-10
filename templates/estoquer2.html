@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% include 'header.html' %}
 
-{% block title %} controle de estoque {% endblock %}
+{% block title %} Estoque por Lote {% endblock %}
 {% block body %}
-
-<div class="w-100 margin-top p-1">
+<div class="w-100 margin-top p-2">
     <div class="row">
-        <div class="col md-12">
+        <div class="col md-5">
+            <div class="input-group-append">
+                <a href="{{url_for('gerenciar_estoque')}}" type="button" class="btn btn-success ms-2">Voltar</a>
+            </div>
             <div class="p-1">
-                <h2 class=" d-flex justify-content-center"><strong>Consulta de Saldo</strong></h2>
+                <h2 class=" d-flex justify-content-center"><strong>Consulta por Lote do Item: {{item}}</strong></h2>
                 <div class="page-top-itens">
                     <div class="container w-100 d-flex justify-content-center">
                         <form method="POST" action="{{url_for('estoque')}}" class="input-group">
-                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="estoque"
+                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="item"
                                 aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
                             <div class="input-group-append">
                                 <button class="btn btn-success" type="submit">Buscar</button>                                
@@ -37,35 +39,521 @@
                         {%endfor%}
                         {%endif%}
                         {%endwith%}
-                    </div>
-                </div>
-                <div class="container_table">
+
+
+                        
+                            
+
+
+                <div class="posições">
                     
+                    <div class="posições">
+                        <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#aba1" data-bs-toggle="tab">Almoxarifado 1</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#aba2" data-bs-toggle="tab">Acabamento</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#aba3" data-bs-toggle="tab">Seleção</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#aba4" data-bs-toggle="tab">Qualidade</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#aba5" data-bs-toggle="tab">Embalagem</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#aba6" data-bs-toggle="tab">Cobre</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#aba7" data-bs-toggle="tab">MKM</a>
+                        </li>
+                      </ul>
+
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="aba1">
+                          <div class="row">
+                            <div class="col">
+                                <div class="table-responsive container_table">
+                                    
+                                <table class="col table-success">
+                                    <tr>
+                                        <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                        <th>Peso Total :{{peso_all}} GR</th>
+                                        <th>Quantidade Total no Almoxarifado : {{setor_a1}} {{unidade}}</th>
+                                        
+                                    </tr>
+                                </table>
                     <table class="table table-hover table-info">
+                        
+
                         <tr>
                             <th>Código</th>
-                            <th>Descrição</th>
-                            <th>Tipo</th>
-                            <th>Estoque</th>
-                            <th>Unidade</th>
+                            <th>Lote</th>
+                            <th>Referencia</th>
+                            <th>Quantidade</th>
+                            <th>UM</th>
+                            <th>Peso</th>
+                            <th>Fino</th>
+                            <th>Obs</th>
+                            <th>local</th>
                             
                         </tr>
-                    
+                        {%for row in consulta%}        
+                        {%if row.local == 2436985075%}   
+                        
+                        
                         <tr>
                             
-                            <td>{{item}}</td>
-                            <td>{{descricao}}</td>
-                            <td>{{tipo}}</td>
-                            <td>{{saldoFisico}}</td> 
+                            <td>{{row.item}}</td>
+                            <td>{{row.lote_visual}}</td>
+                            <td>{{row.referencia}}</td>
+                            <td>{{row.quantidade}}</td> 
                             <td>{{unidade}}</td>
-                            
+                            <td>{{row.peso}}</td>
+                            <td>{{row.fino}}</td>
+                            <td>{{row.obs}}</td>
+                            <td>{{row.local}}</td>
+                            <td>
+                                    <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                        <input type="hidden" name="id" value="{{row.id}}">
+                                        <input type="hidden" name="item" value="{{row.item}}">
+                                        <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                        <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                        <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                        <input type="hidden" name="obs" value="{{row.obs}}">
+                                        <input type="hidden" name="local" value="{{row.local}}">
+                                        <button type="submit" class="btn btn-danger btn-xs" 
+                                        onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                            src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                        </button>  
+                                    </form>
+                            </td>
                         </tr>
-
-                       
+                        {%endif%}
+                        {%endfor%}
+                        
                     </table>
+                    
+                            </div>
+                            </div>
+                           </div>
+                            </div>
+                            <div class="tab-pane" id="aba2">
+                                <div class="row">
+                                  <div class="col">
+                                      <div class="table-responsive container_table">
+                                        <table class="col table-success">
+                                            <tr>
+                                                <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                                <th>Peso Total :{{peso_all}} GR</th>
+                                                <th>Quantidade Total do Acabamento: {{setor_ac}} {{unidade}}</th>
+                                                
+                                            </tr>
+                                        </table>
+
+
+                                      <table class="table table-hover table-info">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Lote</th>
+                                        <th>Referencia</th>
+                                        <th>Quantidade</th>
+                                        <th>UM</th>
+                                        <th>Peso</th>
+                                        <th>Fino</th>
+                                        <th>Obs</th>
+                                        <th>local</th>
+                                        
+                                    </tr>
+                                    {%for row in consulta%}        
+                                    {%if row.local == 2511785274%}   
+                                    
+                                    <tr>
+                                        
+                                        <td>{{row.item}}</td>
+                                        <td>{{row.lote_visual}}</td>
+                                        <td>{{row.referencia}}</td>
+                                        <td>{{row.quantidade}}</td> 
+                                        <td>{{unidade}}</td>
+                                        <td>{{row.peso}}</td>
+                                        <td>{{row.fino}}</td>
+                                        <td>{{row.obs}}</td>
+                                        <td>{{row.local}}</td>
+                                        <td>
+                                                <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                                    <input type="hidden" name="id" value="{{row.id}}">
+                                                    <input type="hidden" name="item" value="{{row.item}}">
+                                                    <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                                    <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                                    <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                                    <input type="hidden" name="obs" value="{{row.obs}}">
+                                                    <input type="hidden" name="local" value="{{row.local}}">
+                                                    <button type="submit" class="btn btn-danger btn-xs" 
+                                                    onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                                        src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                                    </button>  
+                                                </form>
+                                        </td>
+                                    </tr>
+                                    {%endif%}
+                                    {%endfor%}
+                                   
+                                </table>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                
+
+
+                                <div class="tab-pane" id="aba3">
+                                    <div class="row">
+                                      <div class="col">
+                                          <div class="table-responsive container_table">
+                                          
+                                            <table class="col table-success">
+                                                <tr>
+                                                    <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                                    <th>Peso Total :{{peso_all}} GR</th>
+                                                    <th>Quantidade Total do Seleção: {{setor_se}} {{unidade}}</th>
+                                                    
+                                                </tr>
+                                            </table>
+
+
+        
+                            <table class="table table-hover table-info">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Lote</th>
+                                    <th>Referencia</th>
+                                    <th>Quantidade</th>
+                                    <th>UM</th>
+                                    <th>Peso</th>
+                                    <th>Fino</th>
+                                    <th>Obs</th>
+                                    <th>local</th>
+                                    
+                                </tr>
+                                {%for row in consulta%}        
+                                {%if row.local == 4085566100%}   
+                                
+                                <tr>
+                                    
+                                    <td>{{row.item}}</td>
+                                    <td>{{row.lote_visual}}</td>
+                                    <td>{{row.referencia}}</td>
+                                    <td>{{row.quantidade}}</td> 
+                                    <td>{{unidade}}</td>
+                                    <td>{{row.peso}}</td>
+                                    <td>{{row.fino}}</td>
+                                    <td>{{row.obs}}</td>
+                                    <td>{{row.local}}</td>
+                                    <td>
+                                            <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                                <input type="hidden" name="id" value="{{row.id}}">
+                                                <input type="hidden" name="item" value="{{row.item}}">
+                                                <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                                <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                                <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                                <input type="hidden" name="obs" value="{{row.obs}}">
+                                                <input type="hidden" name="local" value="{{row.local}}">
+                                                <button type="submit" class="btn btn-danger btn-xs" 
+                                                onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                                    src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                                </button>  
+                                            </form>
+                                    </td>
+                                </tr>
+                                {%endif%}
+                                {%endfor%}
+                               
+                            </table>
+                                    </div>
+                                    </div>
+                                   </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="aba4">
+      
+                                        <div class="row">
+                                          <div class="col">
+                                              <div class="table-responsive container_table">
+                                                  
+
+                                                <table class="col table-success">
+                                                    <tr>
+                                                        <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                                        <th>Peso Total :{{peso_all}} GR</th>
+                                                        <th>Quantidade Total do Qualidade: {{setor_cq}} {{unidade}}</th>
+                                                        
+                                                    </tr>
+                                                </table>
+            
+                                <table class="table table-hover table-info">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Lote</th>
+                                        <th>Referencia</th>
+                                        <th>Quantidade</th>
+                                        <th>UM</th>
+                                        <th>Peso</th>
+                                        <th>Fino</th>
+                                        <th>Obs</th>
+                                        <th>local</th>
+                                        
+                                    </tr>
+                                    {%for row in consulta%}        
+                                    {%if row.local == 4085565942%}   
+                                    
+                                    <tr>
+                                        
+                                        <td>{{row.item}}</td>
+                                        <td>{{row.lote_visual}}</td>
+                                        <td>{{row.referencia}}</td>
+                                        <td>{{row.quantidade}}</td> 
+                                        <td>{{unidade}}</td>
+                                        <td>{{row.peso}}</td>
+                                        <td>{{row.fino}}</td>
+                                        <td>{{row.obs}}</td>
+                                        <td>{{row.local}}</td>
+                                        <td>
+                                                <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                                    <input type="hidden" name="id" value="{{row.id}}">
+                                                    <input type="hidden" name="item" value="{{row.item}}">
+                                                    <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                                    <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                                    <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                                    <input type="hidden" name="obs" value="{{row.obs}}">
+                                                    <input type="hidden" name="local" value="{{row.local}}">
+                                                    <button type="submit" class="btn btn-danger btn-xs" 
+                                                    onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                                        src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                                    </button>  
+                                                </form>
+                                        </td>
+                                    </tr>
+                                    {%endif%}
+                                    {%endfor%}
+                                   
+                                </table>
+                                        </div>
+                                        </div>
+                                       </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="aba5">
+                                            <div class="row">
+                                              <div class="col">
+                                                  <div class="table-responsive container_table">
+                                                                                                
+                
+
+                                                    <table class="col table-success">
+                                                        <tr>
+                                                            <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                                            <th>Peso Total :{{peso_all}} GR</th>
+                                                            <th>Quantidade Total do Embalagem: {{setor_as}} {{unidade}}</th>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                    <table class="table table-hover table-info">
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Lote</th>
+                                            <th>Referencia</th>
+                                            <th>Quantidade</th>
+                                            <th>UM</th>
+                                            <th>Peso</th>
+                                            <th>Fino</th>
+                                            <th>Obs</th>
+                                            <th>local</th>
+                                            
+                                        </tr>
+                                        {%for row in consulta%}        
+                                        {%if row.local == 4085566245%}   
+                                        
+                                        <tr>
+                                            
+                                            <td>{{row.item}}</td>
+                                            <td>{{row.lote_visual}}</td>
+                                            <td>{{row.referencia}}</td>
+                                            <td>{{row.quantidade}}</td> 
+                                            <td>{{unidade}}</td>
+                                            <td>{{row.peso}}</td>
+                                            <td>{{row.fino}}</td>
+                                            <td>{{row.obs}}</td>
+                                            <td>{{row.local}}</td>
+                                            <td>
+                                                    <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                                        <input type="hidden" name="id" value="{{row.id}}">
+                                                        <input type="hidden" name="item" value="{{row.item}}">
+                                                        <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                                        <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                                        <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                                        <input type="hidden" name="obs" value="{{row.obs}}">
+                                                        <input type="hidden" name="local" value="{{row.local}}">
+                                                        <button type="submit" class="btn btn-danger btn-xs" 
+                                                        onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                                            src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                                        </button>  
+                                                    </form>
+                                            </td>
+                                        </tr>
+                                        {%endif%}
+                                        {%endfor%}
+                                       
+                                    </table>
+                                            </div>
+                                            </div>
+                                           </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="aba6">
+                                                <div class="row">
+                                                  <div class="col">
+                                                      <div class="table-responsive container_table">
+                                                                  
+                    
+
+
+                                                        <table class="col table-success">
+                                                            <tr>
+                                                                <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                                                <th>Peso Total :{{peso_all}} GR</th>
+                                                                <th>Quantidade Total do setor de Cobre: {{setor_a3}} {{unidade}}</th>
+                                                                
+                                                            </tr>
+                                                        </table>
+                                        <table class="table table-hover table-info">
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Lote</th>
+                                                <th>Referencia</th>
+                                                <th>Quantidade</th>
+                                                <th>UM</th>
+                                                <th>Peso</th>
+                                                <th>Fino</th>
+                                                <th>Obs</th>
+                                                <th>local</th>
+                                                
+                                            </tr>
+                                            {%for row in consulta%}        
+                                            {%if row.local == 4084861665%}   
+                                            
+                                            <tr>
+                                                
+                                                <td>{{row.item}}</td>
+                                                <td>{{row.lote_visual}}</td>
+                                                <td>{{row.referencia}}</td>
+                                                <td>{{row.quantidade}}</td> 
+                                                <td>{{unidade}}</td>
+                                                <td>{{row.peso}}</td>
+                                                <td>{{row.fino}}</td>
+                                                <td>{{row.obs}}</td>
+                                                <td>{{row.local}}</td>
+                                                <td>
+                                                        <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                                            <input type="hidden" name="id" value="{{row.id}}">
+                                                            <input type="hidden" name="item" value="{{row.item}}">
+                                                            <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                                            <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                                            <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                                            <input type="hidden" name="obs" value="{{row.obs}}">
+                                                            <input type="hidden" name="local" value="{{row.local}}">
+                                                            <button type="submit" class="btn btn-danger btn-xs" 
+                                                            onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                                                src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                                            </button>  
+                                                        </form>
+                                                </td>
+                                            </tr>
+                                            {%endif%}
+                                            {%endfor%}
+                                           
+                                        </table>
+                                                </div>
+                                                </div>
+                                               </div>
+                                                </div>
+                                                <div class="tab-pane" id="aba7">
+                                                    <div class="row">
+                                                      <div class="col">
+                                                          <div class="table-responsive container_table">
+                                                                  
+                        
+
+
+                                                            <table class="col table-success">
+                                                                <tr>
+                                                                    <th> Quantidade Total: {{setor_all}} {{unidade}}</th>                                        
+                                                                    <th>Peso Total :{{peso_all}} GR</th>
+                                                                    <th>Quantidade Total em Terceiros(MKM): {{setor_mkm}} {{unidade}}</th>
+                                                                    
+                                                                </tr>
+                                                            </table>
+                                            <table class="table table-hover table-info">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Lote</th>
+                                                    <th>Referencia</th>
+                                                    <th>Quantidade</th>
+                                                    <th>UM</th>
+                                                    <th>Peso</th>
+                                                    <th>Fino</th>
+                                                    <th>Obs</th>
+                                                    <th>local</th>
+                                                    
+                                                </tr>
+                                                {%for row in consulta%}        
+                                                {%if row.local == 2407629011%}   
+                                                
+                                                <tr>
+                                                    
+                                                    <td>{{row.item}}</td>
+                                                    <td>{{row.lote_visual}}</td>
+                                                    <td>{{row.referencia}}</td>
+                                                    <td>{{row.quantidade}}</td> 
+                                                    <td>{{unidade}}</td>
+                                                    <td>{{row.peso}}</td>
+                                                    <td>{{row.fino}}</td>
+                                                    <td>{{row.obs}}</td>
+                                                    <td>{{row.local}}</td>
+                                                    <td>
+                                                            <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                                                <input type="hidden" name="id" value="{{row.id}}">
+                                                                <input type="hidden" name="item" value="{{row.item}}">
+                                                                <input type="hidden" name="lote_visual" value="{{row.lote_visual}}">
+                                                                <input type="hidden" name="referencia" value="{{row.referencia}}">
+                                                                <input type="hidden" name="quantidade" value="{{row.quantidade}}">
+                                                                <input type="hidden" name="obs" value="{{row.obs}}">
+                                                                <input type="hidden" name="local" value="{{row.local}}">
+                                                                <button type="submit" class="btn btn-danger btn-xs" 
+                                                                onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                                                    src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                                                </button>  
+                                                            </form>
+                                                    </td>
+                                                </tr>
+                                                {%endif%}
+                                                {%endfor%}
+                                               
+                                            </table>
+                                                    </div>
+                                                    </div>
+                                                   </div>
+                                                    </div>
+
+                            </div>
+
+
                 </div>
 
-
+            </div>
+        </div>
 
 
 
@@ -74,23 +562,19 @@
     </div>
 </div>
 
+</div>
+
+
+</div>
+
+</div>
+</div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

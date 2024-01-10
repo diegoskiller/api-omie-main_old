@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block title %} ordens de produção visual {% endblock %}
+{% block body %}
+
+<p>- </p><p>- </p><p> -</p><p> </p><p> </p>
+<div class="margin-top w-100">
+    <div class="row">
+        <div class="col md-12">
+            <div class="m-1"><p> </p><p> </p><div>-
+
+                <d-flex->-</d-flex->
+            </div>
+                
+               
+                <div class="margin-top w-100"> 
+
+                    <button type="button" class="btn btn-success ms-1 d-flex justify-content-end" data-bs-toggle="modal"
+                    data-bs-target="#add_op_modal_visual">Abrir Ordem de Produção nova</button>
+                    <h2 class="d-flex justify-content-center mt-2"><strong>Ordem de produção Visual</strong></h2>
+
+                    
+
+                    <div class="input-group d-flex justify-content-end w-100">
+                        
+                        
+                        <form method="POST" action="{{url_for('ordens_producao_visual')}}" class="input-group w-50 input-group d-flex justify-content-start ms-4">
+                        <input type="search" class="form-control  w-50" placeholder="Pesquisar Ordem de Produção" name="filtro_op" aria-label="Pesquisar Ordem de Produção" aria-describedby="basic-addon2" autocomplete="off" style="text-transform: uppercase;">
+                        <div class="input-group-append">
+                        <button class="btn btn-success ms-1" type="submit">'Buscar Ordem'</button>
+                    </div>
+                
+                
+                    <div class="input-group d-flex justify-content-end w-100">
+                
+                        <form method="POST" action="{{url_for('ordens_producao_visual')}}" class="input-group w-50 input-group d-flex justify-content-start ms-4">
+                            <input type="search" class="form-control  w-50" placeholder="Pesquisar Código de Produto" name="codigo_op" aria-label="Pesquisar por Código" aria-describedby="basic-addon2" autocomplete="off" style="text-transform: uppercase;">
+                            <div class="input-group-append">
+                            <button class="btn btn-info ms-1" type="submit">Buscar Código</button>
+                            </form>
+                    </div>
+                </div>
+
+                <div class="container w-100">
+
+                    {% with messages=get_flashed_messages(with_categories=true) %}
+                    {%if messages%}
+                    {%for category, message in messages%}
+                    <div class="alert alert-success">
+                        {{message}}
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                    {%endfor%}
+                    {%endif%}
+                    {%endwith%}
+                </div>
+
+            <div class="container_table m-1">
+
+                <table class="table table-hover table-info" class="flex">
+                    
+
+                    <tr class="table-primary">                        
+                        <th>Nº OP</th>
+                        <th>status</th>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Qtd</th>
+                        <th>Peso Env.</th> 
+                        <th>Peso Ret.</th> 
+                        <th>Fino Env.</th> 
+                        <th>Fino Ret.</th>   
+                        <th>Data</th>
+                        <th>Hora</th> 
+                        <th>Ações</th> 
+                    </tr>
+
+
+                    {% for row in itens.items %}
+                    {% if filtro == None %}
+                    {% if filtro_cod == None %}
+
+                    
+                    <tr class='{{"table-dark" if row.situação == "Encerrada" else ""}}'>                      
+                        <td>{{row.numero_op_visual}}</td>
+                        <td>{{row.situação}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descrição}}</td> 
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.peso_enviado}}</td>
+                        <td>{{row.peso_retornado}}</td>
+                        <td>{{row.fino_enviado}}</td>
+                        <td>{{row.fino_retornado}}</td> 
+                        <td>{{row.data_abertura}}</td> 
+                        <td>{{row.hora_abertura}}</td> 
+                        {% if row.situação == "Encerrada" %}
+                        <td>
+                            <form action="op/{{row.numero_op_visual}}" method="post" type="hidden" >
+                                <input type="hidden" name="item" value="{{row.item}}">
+                                <input type="hidden" name="numero_op_visual" value="{{row.numero_op_visual}}">
+                                <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                <input type="hidden" name="descricao" value="{{row.descrição}}">
+                                <input type="hidden" name="peso_enviado" value="{{row.peso_enviado}}">
+                                <input type="hidden" name="peso_retornado" value="{{row.peso_retornado}}">
+                                <input type="hidden" name="fino_enviado" value="{{row.fino_enviado}}">
+                                <input type="hidden" name="fino_retornado" value="{{row.fino_retornado}}">     
+                                <button type="submit" for="myForm" class="btn btn-primary btn-xs"><img
+                                src="{{url_for('static', filename='images/eye.svg')}}" alt=""></button>                           
+                            </form>
+                        </td>
+                        {% else %}
+                        <td>
+                            <div  class="icons">
+                                <div>
+                                    <a href="update_op/{{row.id}}" class="editItem btn btn-warning btn-xs " data-bs-toggle="modal"
+                                        data-bs-target="#edit_op_modal{{row.id}}"><img
+                                        src="{{url_for('static', filename='images/pencil-fill.svg')}}" alt="">
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="delete_op/{{row.id}}" class="btn btn-danger btn-xs"
+                                        onclick="return confirm('Tem certeza que quer deletar esta ordem de produção?')"><img
+                                            src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                    </a>
+                                </div>
+                                <div>           
+                                    <form action="op/{{row.numero_op_visual}}" method="post" type="hidden" >
+                                                <input type="hidden" name="item" value="{{row.item}}">
+                                                <input type="hidden" name="numero_op_visual" value="{{row.numero_op_visual}}">
+                                                <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                                <input type="hidden" name="descricao" value="{{row.descrição}}">
+                                                <input type="hidden" name="peso_enviado" value="{{row.peso_enviado}}">
+                                                <input type="hidden" name="peso_retornado" value="{{row.peso_retornado}}">
+                                                <input type="hidden" name="fino_enviado" value="{{row.fino_enviado}}">
+                                                <input type="hidden" name="fino_retornado" value="{{row.fino_retornado}}">     
+                                                <button type="submit" for="myForm" class="btn btn-info btn-xs"><img
+                                        src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button>                           
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+
+                    
+                    {% else %}
+                    {% if filtro_cod == row.item %}
+                    
+                    <tr class='{{"table-dark" if row.situação == "Encerrada" else ""}}'>                      
+                        <td>{{row.numero_op_visual}}</td>
+                        <td>{{row.situação}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descrição}}</td> 
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.peso_enviado}}</td>
+                        <td>{{row.peso_retornado}}</td>
+                        <td>{{row.fino_enviado}}</td>
+                        <td>{{row.fino_retornado}}</td> 
+                        <td>{{row.data_abertura}}</td> 
+                        <td>{{row.hora_abertura}}</td> 
+                        {% if row.situação == "Encerrada" %}
+                        <td>
+                            <form action="op/{{row.numero_op_visual}}" method="post" type="hidden" >
+                                <input type="hidden" name="item" value="{{row.item}}">
+                                <input type="hidden" name="numero_op_visual" value="{{row.numero_op_visual}}">
+                                <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                <input type="hidden" name="descricao" value="{{row.descrição}}">
+                                <input type="hidden" name="peso_enviado" value="{{row.peso_enviado}}">
+                                <input type="hidden" name="peso_retornado" value="{{row.peso_retornado}}">
+                                <input type="hidden" name="fino_enviado" value="{{row.fino_enviado}}">
+                                <input type="hidden" name="fino_retornado" value="{{row.fino_retornado}}">     
+                                <button type="submit" for="myForm" class="btn btn-primary btn-xs"><img
+                                src="{{url_for('static', filename='images/eye.svg')}}" alt=""></button>                           
+                            </form>
+                        </td>
+                        {% else %}
+                        <td>
+                            <div  class="icons">
+                                <div>
+                                    <a href="update_op/{{row.id}}" class="editItem btn btn-warning btn-xs " data-bs-toggle="modal"
+                                        data-bs-target="#edit_op_modal{{row.id}}"><img
+                                        src="{{url_for('static', filename='images/pencil-fill.svg')}}" alt="">
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="delete_op/{{row.id}}" class="btn btn-danger btn-xs"
+                                        onclick="return confirm('Tem certeza que quer deletar esta ordem de produção?')"><img
+                                            src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                    </a>
+                                </div>
+                                <div>           
+                                    <form action="op/{{row.numero_op_visual}}" method="post" type="hidden" >
+                                                <input type="hidden" name="item" value="{{row.item}}">
+                                                <input type="hidden" name="numero_op_visual" value="{{row.numero_op_visual}}">
+                                                <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                                <input type="hidden" name="descricao" value="{{row.descrição}}">
+                                                <input type="hidden" name="peso_enviado" value="{{row.peso_enviado}}">
+                                                <input type="hidden" name="peso_retornado" value="{{row.peso_retornado}}">
+                                                <input type="hidden" name="fino_enviado" value="{{row.fino_enviado}}">
+                                                <input type="hidden" name="fino_retornado" value="{{row.fino_retornado}}">     
+                                                <button type="submit" for="myForm" class="btn btn-info btn-xs"><img
+                                        src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button>                           
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}    
+                    </tr>
+                    {%else%}
+                    {% endif %}
+                    {% endif %}
+                    {%else%}
+                    {% if filtro == row.numero_op_visual %}
+                    <tr class='{{"table-dark" if row.situação == "Encerrada" else ""}}'>                      
+                        <td>{{row.numero_op_visual}}</td>
+                        <td>{{row.situação}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descrição}}</td> 
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.peso_enviado}}</td>
+                        <td>{{row.peso_retornado}}</td>
+                        <td>{{row.fino_enviado}}</td>
+                        <td>{{row.fino_retornado}}</td> 
+                        <td>{{row.data_abertura}}</td> 
+                        <td>{{row.hora_abertura}}</td> 
+                        {% if row.situação == "Encerrada" %}
+                        <td>
+                            <form action="op/{{row.numero_op_visual}}" method="post" type="hidden" >
+                                <input type="hidden" name="item" value="{{row.item}}">
+                                <input type="hidden" name="numero_op_visual" value="{{row.numero_op_visual}}">
+                                <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                <input type="hidden" name="descricao" value="{{row.descrição}}">
+                                <input type="hidden" name="peso_enviado" value="{{row.peso_enviado}}">
+                                <input type="hidden" name="peso_retornado" value="{{row.peso_retornado}}">
+                                <input type="hidden" name="fino_enviado" value="{{row.fino_enviado}}">
+                                <input type="hidden" name="fino_retornado" value="{{row.fino_retornado}}">     
+                                <button type="submit" for="myForm" class="btn btn-primary btn-xs"><img
+                                src="{{url_for('static', filename='images/eye.svg')}}" alt=""></button>                           
+                            </form>
+                        </td>
+                        {% else %}
+                        <td>
+                            <div  class="icons">
+                                <div>
+                                    <a href="update_op/{{row.id}}" class="editItem btn btn-warning btn-xs " data-bs-toggle="modal"
+                                        data-bs-target="#edit_op_modal{{row.id}}"><img
+                                        src="{{url_for('static', filename='images/pencil-fill.svg')}}" alt="">
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="delete_op/{{row.id}}" class="btn btn-danger btn-xs"
+                                        onclick="return confirm('Tem certeza que quer deletar esta ordem de produção?')"><img
+                                            src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                    </a>
+                                </div>
+                                <div>           
+                                    <form action="op/{{row.numero_op_visual}}" method="post" type="hidden" >
+                                                <input type="hidden" name="item" value="{{row.item}}">
+                                                <input type="hidden" name="numero_op_visual" value="{{row.numero_op_visual}}">
+                                                <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                                <input type="hidden" name="descricao" value="{{row.descrição}}">
+                                                <input type="hidden" name="peso_enviado" value="{{row.peso_enviado}}">
+                                                <input type="hidden" name="peso_retornado" value="{{row.peso_retornado}}">
+                                                <input type="hidden" name="fino_enviado" value="{{row.fino_enviado}}">
+                                                <input type="hidden" name="fino_retornado" value="{{row.fino_retornado}}">     
+                                                <button type="submit" for="myForm" class="btn btn-info btn-xs"><img
+                                        src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button>                           
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}   
+                    </tr>
+                    
+                    {%else%}
+                    {% endif %}
+                    
+                    {% endif %}
+                    
+
+
+
+
+
+
+
+                    {% include 'edit_modal_visual.html' %}
+                    {% endfor %}
+                </table>
+            </div></div>
+                {% include 'add_modal_visual.html' %}
+
+                {% for page_num in itens.iter_pages(left_edge=1, right_edge=1,
+                    left_current=1, right_current=2) %} {% if page_num %} {% if itens.page ==
+                    page_num %}
+                    <a
+                      class="btn btn-dark mb-4"
+                      href="{{ url_for('ordens_producao_visual', page=page_num) }}"
+                      >{{ page_num }}</a
+                    >
+                    {% else %}
+                    <a
+                      class="btn btn-outline-dark mb-4"
+                      href="{{ url_for('ordens_producao_visual', page=page_num) }}"
+                      >{{ page_num }}</a
+                    >
+                    {% endif %} {% else %} ... {% endif %} {% endfor %}
+             
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

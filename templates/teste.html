@@ -22,10 +22,11 @@
       <tr>
         <th scope="col">Codigo</th>
         <th scope="col">Descrição</th>
-        <th scope="col">Codigo Familia</th>
         <th scope="col">id produto</th>
         <th scope="col">Estoque</th>
         <th scope="col">Unidade</th>
+        <th scope="col">Peso</th>
+        <th scope="col">Fino</th>
 
       </tr>
     </thead>
@@ -35,12 +36,13 @@
     
     <tbody>
       <tr>
-        <td>{{teste.codigo}}</td>
-        <th scope="row">{{teste.descricao}}</th>
-        <td>{{operacao}}</td>
-        <td>{{id_produto}}</td>
+        <td>{{item}}</td>
+        <th scope="row">{{teste[5]}}</th>
+        <td>{{teste[0]}}</td>
         <td>{{saldoFisico}}</td>
-        <td>{{teste.unidade}}</td>
+        <td>{{teste[3]}}</td>
+        <td>{{peso}}</td>
+        <td>{{fino}}</td>
          <td style="width: 0px;">
           <div>
                   <form action="{{url_for('teste_saldo')}}" method="post" type="hidden" >    
@@ -52,9 +54,9 @@
                 </td>
 
              <td style="width: 0px;">  
-                  <form action="{{url_for('cadastro_prod')}}" method="post" type="hidden" >    
+                  <form action="{{url_for('teste_saldo')}}" method="post" type="hidden" >    
                       <button type="submit" class="btn btn-success btn-xs">
-                        <input type="hidden" name="item" value="{{teste.codigo}}">
+                        <input type="hidden" name="item" value="{{teste[0]}}">
                         <img src="{{url_for('static', filename='images/inboxes.svg')}}" alt="">
                       </button>                           
                   </form>

@@ -5,87 +5,94 @@
 {% block title %} Lista de movimentos {% endblock %}
 {% block body %}
 
+<p><p><p><p><p></p>
+<p><p><p><p><p></p>
 
-<div class="container margin-top">
+
+<div class="input-group mb-3 d-flex justify-content-end">
+    <p><p><p><p><p></p>
+    <h3 class="d-flex justify-content-center mt-2">Movimentos de Estoque por Data</h3>
+    
+</div>
+
+
+<div class="w-100">
+
     <div class="row">
-        <div class="col md-12">
-            <div class="p-3 table-responsive">
-                <div class="col  md-3 p-3">
-                    <form action="{{url_for('lista_movimento_filtro')}}" method="get">
-                        <input type="date" id="data" name="data_movimento"
-                        value="2023/01/01"
-                        min="2023-01-01" max="2023-12-31">
-
-                        <button type="submit" class="btn btn-info">Filtrar</button>
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                <div class="col">
+                    <form method="POST" action="{{url_for('lista_movimento_filtro')}}" class="input-group">
+                        <a href="{{url_for('lista_movimento')}}" type="button" class="btn btn-success ms-2">Filtrar por Código</a>
+                        <input type="search"  class="form-control" placeholder="Pesquisar por Data" name="data"
+                                aria-label="Pesquisar por Data" aria-describedby="basic-addon2" autocomplete="off">
+                        <button type="submit" class="btn btn-info">Filtrar por Data</button>
                     </form>
                     
                 </div>
-                
-                <table class="table table table-striped table-secondary movimento">
+<!--                 
+                <div><h4>data de filtragem: {{data_movimento}}</h4></div>
+                 -->
+                <table class="table table table-striped table-Primary movimento">
 
                     <tr class="table-info">                        
                         <th>Id</th>
                         <th>Item</th>
-                        <th>Descrição</th>
-                        <th>Cod. Família</th>
-                        <th>Desc. Família</th>  
-                        <th>Op. Ref</th>
-                        <th>Item Ref.</th>
-                        <th>Saldo anterior</th> 
-                        <th>Qtd saída</th> 
-                        <th>Saldo atual</th> 
-                        <th>Qtd. unitária</th> 
-                        <th>Id Família</th> 
-                        <th>Id Malha</th> 
-                        <th>Id Prod. Malha</th> 
-                        <th>Int. Prod malha</th> 
-                        <th>Perda</th> 
-                        <th>Peso bruto</th> 
-                        <th>peso liquido</th> 
-                        <th>Tipo</th> 
-                        <th>uAltProdMalha</th> 
-                        <th>uIncProdMalha</th>
-                        <th>unidProdMalha</th>
+                        <th>Qtd</th>
+                        <th>Referencia</th>
+                        <th>tipo</th>
+                        <th>Obs</th>
+                        <th>Lote</th>
                         <th>Data</th>
                         <th>Hora</th>
+                        <th>Usuario</th>
+
                     </tr>
 
 
                     {% for row in filtro.items %}
                     <tr>                      
                         <td>{{row.id}}</td>
-                        <td>{{row.item_movimento}}</td>
-                        <td>{{row.descrProdMalha}}</td>
-                        <td>{{row.codFamMalha}}</td> 
-                        <td>{{row.descrFamMalha}}</td> 
-                        <td>{{row.op_referencia}}</td> 
-                        <td>{{row.item_referencia}}</td> 
-                        <td>{{"%.2f" % row.saldo_anterior}}</td>
-                        <td>{{"%.2f" % row.quantidade_movimento}}</td>
-                        <td>{{"%.2f" % row.saldo_atual}}</td>
-                        <td>{{row.quantProdMalha}}</td> 
-                        <td>{{row.idFamMalha}}</td> 
-                        <td>{{row.idMalha}}</td>  
-                        <td>{{row.idProdMalha}}</td>
-                        <td>{{row.intProdMalha}}</td>
-                        <td>{{row.percPerdaProdMalha}}</td>
-                        <td>{{row.pesoBrutoProdMalha}}</td> 
-                        <td>{{row.pesoLiqProdMalha}}</td> 
-                        <td>{{row.tipoProdMalha}}</td> 
-                        <td>{{row.uAltProdMalha}}</td> 
-                        <td>{{row.uIncProdMalha}}</td>
-                        <td>{{row.unidProdMalha}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.qualidade}}</td>
+                        <td>{{row.referencia}}</td>
+                        <td>{{row.tipo}}</td>
+                        <td>{{row.obs}}</td>
+                        <td>{{row.lote_visual}}</td>
                         <td>{{row.data_movimento}}</td>
                         <td>{{row.hora_movimento}}</td> 
+                        <td>{{row.usuario}}</td>
                     </tr>
 
                     {% endfor %}
                 </table>
 
-                <div>{{filtro}}</div>
+                
              
             </div>
+
+            {% for page_num in filtro.iter_pages(left_edge=1, right_edge=1,
+                left_current=1, right_current=2) %} {% if page_num %} {% if filtro.page ==
+                page_num %}
+                <a
+                  class="btn btn-dark mb-4"
+                  href="{{ url_for('lista_movimento_filtro', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% else %}
+                <a
+                  class="btn btn-outline-dark mb-4"
+                  href="{{ url_for('lista_movimento_filtro', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% endif %} {% else %} ... {% endif %} {% endfor %}
+   
+
+
+
         </div>
+
     </div>
 </div>
 

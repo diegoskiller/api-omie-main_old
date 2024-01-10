@@ -11,7 +11,7 @@ from flask_cors import CORS
 
 load_dotenv()
 
-app = Flask (__name__)
+app = Flask (name)
 db = SQLAlchemy(app)
 CORS(app)
 

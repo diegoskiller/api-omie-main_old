@@ -1,0 +1,75 @@
+{% block body %}
+
+<div class="modal fade" id="lote_geral_Modal"  role="dialog" data-bs-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adcionar Lote</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{url_for('adicionar_lote_geral')}}" method="POST" class="submit">
+                   
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">OP ou Nfe de Referencia:</label>
+                        <input type="text" name="referencia" class="form-control">
+                    </div>    
+                    
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Código do item:</label>
+                        <input type="text" name="item" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Quantidade do Lote:</label>
+                        <input type="number" name="quantidade" class="form-control">
+                    </div>
+                                  
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Peso do Lote:</label>
+                        <input type="number" name="peso" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tipo do Lote:</label>
+                    <select class="form-select" aria-label="Default select example" name="tipo">
+                        <!-- <option selected>Posição</option> -->
+                        <option value="Visual">Normal</option>
+                        <option value="Temporario">Adiantado</option>
+                    </select> 
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">local de Estoque:</label>
+                    <select class="form-select" aria-label="Default select example" name="local">
+                        <!-- <option selected>Posição</option> -->
+                        <option value="2436985075">Estoque</option>
+                        <option value="2511785274">Acabamento</option>
+                        <option value="4085566100">Seleção</option>
+                        <option value="4085565942">Qualidade</option>
+                        <option value="4085566245">Embalagem</option>
+                        <option value="4084861665">Setor Cobre</option>
+
+                    </select> 
+                    </div>
+                  
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Observação:</label>
+                        <input type="text" name="obs" class="form-control" placeholder="ativado">
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();">Adcionar Lote</button>
+                    </div>
+                </form>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

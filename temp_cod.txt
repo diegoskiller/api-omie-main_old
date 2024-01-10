@@ -7,6 +7,12 @@ APP_SECRET = 'a51654af368ec4e34129dab2b017dab7'
 "id_prod": 2424607209,
 
 
+PROXIMA OP 10865
+
+table {
+  display: flex;
+  flex-direction: column-reverse;
+}
 
 {%for row in estoque["listaEstoque"]%} -->
                             <!-- <td>{{row.get("nSaldo")}}</td>                           
@@ -15,3 +21,32 @@ APP_SECRET = 'a51654af368ec4e34129dab2b017dab7'
                             <td>{{row.get("nEstoqueMinimo")}}</td>
                             {%endfor%}                        
 
+
+{
+  "codigo": "teste1235",
+  "descricao": "Produto de teste 1",
+  "unidade": "UN",
+  "marca": "testemarca",
+  "modelo": "modelo vai ser liga",
+  "obs_internas": " aqui é codigo do cliente",
+  "caracteristicas": [
+    {
+      "cCodIntCaract": "",
+      "cConteudo": "0,12345",
+      "cExibirItemNF": "N",
+      "cExibirItemPedido": "N",
+      "cExibirOrdemProd": "N",
+      "cNomeCaract": "Peso_Fino",
+      "nCodCaract": 3638913624
+    },
+    {
+      "cCodIntCaract": "",
+      "cConteudo": "0,032",
+      "cExibirItemNF": "N",
+      "cExibirItemPedido": "N",
+      "cExibirOrdemProd": "N",
+      "cNomeCaract": "peso_unitario",
+      "nCodCaract": 4086784228
+    }
+  ]
+}

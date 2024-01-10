@@ -5,15 +5,23 @@
 {% block body %}
 
 
+
+<p><p><p><p><p></p>
+<p><p><p><p><p></p>
+<p><p><p><p><p></p>
+<div class="input-group mb-3 d-flex justify-content-end">
+      -
+</div>
+
 <div class="w-100 margin-top p-1">
-    <div class="row">
-        <div class="col md-12">
-            <div class="p-1">
+    <div>
+        <div>
+            <div>
                 <h2 class=" d-flex justify-content-center"><strong>Cadastro de itens</strong></h2>
                 <div class="page-top-itens">
                     <div class="container w-100 d-flex justify-content-center">
-                        <form method="POST" action="{{url_for('busca')}}" class="input-group">
-                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="search"
+                        <form method="POST" action="{{url_for('itens')}}" class="input-group">
+                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="item"
                                 aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
                             <div class="input-group-append">
                                 <button class="btn btn-success" type="submit">Buscar</button>
@@ -47,47 +55,75 @@
                         <tr>
                             <th>Código</th>
                             <th>Descrição</th>
-                            <th>Código NCM</th>
+                            <th>Tipo</th>
+                            <th>Saldo no Estoque</th>
                             <th>Unidade</th>
-                            <th>Alterado por:</th>
-                            <th>Ação</th>
+                            <th>Edições</th>
                         </tr>
 
 
-                        {%for row in lista_itens["produto_servico_cadastro"]%}
                         
-                        <tr>
-                            <td>{{row.get("codigo")}}</td>
-                            <td>{{row.get("descricao")}}</td>
-                            <td>{{row.get("ncm")}}</td>
-                            <td>{{row.get("unidade")}}</td>
-                            <td>{{row.get("info").get("uAlt")}}</td>
-                            <td>
-                                <div  class="icons">
-                                    <div>
-                                        <form action="{{ url_for('estrutura') }}" method="post" type="hidden">
-                                            <button name="item"  value="{{row.get('codigo')}}" class="btn btn-info btn-xs" ><img
-                                                src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button>
-                                        </form>
-                                    </div>
-                                    <div>
-                                        <a href="update" class="editItem btn btn-warning btn-xs" data-bs-toggle="modal"
-                                            data-bs-target="#edit_item_Modal{{row.get('codigo')}}"><img
-                                                src="{{url_for('static', filename='images/pencil-fill.svg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href="delete/{{row.codigo}}" class="btn btn-danger btn-xs"
-                                            onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
-                                                src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
+                        <tr class="table-primary">
+                            <td>{{dados[6]}}</td>
+                            <td>{{dados[5]}}</td>
+                            <td>{{dados[1]}}</td>
+                            <td>{{dados[2]}}</td>
+                            <td>{{dados[3]}}</td>
+                            <td><div>
+                                <form action="{{ url_for('estrutura') }}" method="post" type="hidden">
+                                    <button name="item"  value="{{dados[6]}}" class="btn btn-info btn-xs" ><img
+                                        src="{{url_for('static', filename='images/card-list.svg')}}" alt="">Estrutura</button>
+                                </form>
+                            </div>
                             </td>
+                        </tr>
+                           
+                            
+                            
+
+                            <tr>
+                                
+                                <th>Valor Unitário</th>
+                                <th>Nome do Cliente</th>
+                                <th>Código do Cliente</th>
+                                <th>Liga Principal</th>
+                                <th>ID Interno</th>
+                                <th><div>
+                                    <a href="update" class="editItem btn btn-warning btn-xs" data-bs-toggle="modal"
+                                        data-bs-target="#edit_item_Modal{{dados[6]}}"><img
+                                            src="{{url_for('static', filename='images/pencil-fill.svg')}}" alt="">Alterar
+                                    </a>
+                                </div>
+                                </th>
+
+                            </tr>
+    
+                            <tr class="table-primary">
+                                <td>{{dados[4]}}</td>
+                                <td>{{dados[7]}}</td>
+                                <td>{{dados[8]}}</td>
+                                <td>{{dados[9]}}</td>
+                                <td>{{dados[0]}}</td>
+                                <td><div>
+                                    <a href="delete/{{dados[6]}}" class="btn btn-danger btn-xs"
+                                        onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                            src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt=""> Excluir
+                                    </a>
+                                </div></td>
+                              
+                                <div  class="icons">
+                                    
+                                </div>
+
+                                  </td> 
+                        
+                            </tr>
+                           
+                            
 
                         </tr>
-                        {% include 'edit_modal.html' %}
-                        {%endfor%}
+                        
+                        
                     </table>
 
                 </div>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block title %} Gerenciar Estoque {% endblock %}
+{% block body %}
+ 
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="p-3">
+                <div>
+                    <div class="container w-100 d-flex justify-content-center align-items-center">
+                        <form method="POST" action="{{url_for('estoque')}}" class="input-group">
+                            <input type="search"  class="form-control" placeholder="Pesquisar por item" name="item"
+                                aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="submit">Consultar Estoque por Lote</button>
+                            </div>
+
+                            
+                    
+                        </form>
+
+                    </div>
+                    <div class="input-group-append d-flex justify-content-center align-items-center mt-2">
+                        <a href="{{url_for('lista_movimento')}}" type="button" class="btn btn-primary ms-2">Movimentos de Estoque</a>
+                        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
+                        data-bs-target="#lote_geral_Modal" >Lançar Saldo</button>
+                        <a href="{{url_for('posicoes_estoque')}}" type="button" class="btn btn-primary ms-2">Baixar Saldo</a>
+                        <a href="{{url_for('posicoes_estoque')}}" type="button" class="btn btn-primary ms-2">Processar Recebimento</a>
+                        <a href="{{url_for('posicoes_estoque')}}" type="button" class="btn btn-primary ms-2">Processar Faturamento</a>
+                        <a href="{{url_for('posicoes_estoque')}}" type="button" class="btn btn-primary ms-2">Unidade Omie</a>
+                        <a href="{{url_for('posicoes_estoque')}}" type="button" class="btn btn-primary ms-2">Cadastro Base</a>
+                    </div>
+
+                    {% include 'lote_geral_modal.html' %}
+    
+
+                    <div class="container w-100">
+
+                        {% with messages=get_flashed_messages(with_categories=true) %}
+                        {%if messages%}
+                        {%for category, message in messages%}
+                        <div class="alert alert-success">
+                            {{message}}
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                        </div>
+                        {%endfor%}
+                        {%endif%}
+                        {%endwith%}
+                    </div>
+                </div>
+               
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Script JavaScript para atribuir um valor ao campo de entrada -->
+<script>
+    function passarValor() {
+        // Atribuir o valor desejado ao campo de entrada
+        document.getElementById("input_cod").value = "";
+    }
+</script>
+
+
+{% endblock %}

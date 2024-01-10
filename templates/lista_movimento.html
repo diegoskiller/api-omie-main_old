@@ -5,21 +5,37 @@
 {% block title %} Lista de movimentos {% endblock %}
 {% block body %}
 
+<p><p><p><p><p></p>
+<p><p><p><p><p></p>
 
-<div class="w-100 p-2 margin-top">
-    <div class="mb-2">
-        <form action="{{url_for('lista_movimento_filtro')}}" method="get" class="input-group ">
-            <input type="date" id="data" name="data_movimento"
-            value="2023/01/01"
-            min="2023-01-01" max="2023-12-31">
 
-            <button type="submit" class="btn btn-success ms-1">Filtrar</button>         
-        </form>        
-    </div>
+<div class="input-group mb-3 d-flex justify-content-end">
+    <p><p><p><p><p></p>
+    <h3 class="d-flex justify-content-center mt-2">Movimentos de Estoque por Código</h3>
+    
+</div>
+
+
+<div class="w-100">
+    
+   
 
     <div class="row">
         <div class="col">
             <div class="table-responsive container_table">
+
+                <div class="mb-2">
+                    
+                    <form method="POST" action="{{url_for('lista_movimento')}}" class="input-group">
+                        <a href="{{url_for('lista_movimento_filtro')}}" type="button" class="btn btn-success ms-2">Filtrar por Data</a>
+                        <input type="search"  class="form-control" placeholder="Pesquisar por item" name="item"
+                                aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+                        <button type="submit" class="btn btn-info">Filtrar por Código</button>
+                    </form>        
+                </div>
+
+
+
                 
                 
                 <table class="table table table-striped table-secondary">
@@ -27,31 +43,29 @@
                     <tr class="table-success">                        
                         <th>Id</th>
                         <th>Item</th>
-                        <th>Descrição</th>
+                        <th>Tipo de Movimento</th>
                         <th>Lote</th>
-                        <th>Op. Ref</th>
-                        <th>Item Ref.</th>
-                        <th>Saldo anterior</th> 
-                        <th>Qtd saída</th> 
-                        <th>Saldo atual</th> 
+                        <th>Referencia</th>
+                        <th>Qtd</th>
+                        <th>Obs</th> 
                         <th>Data</th>
                         <th>Hora</th>
+                        <th>usuario</th>
                     </tr>
 
 
                     {% for row in movimentos.items %}
                     <tr>                      
                         <td>{{row.id}}</td>
-                        <td>{{row.item_movimento}}</td>
-                        <td>{{row.descricao}}</td>
-                        <td>{{row.numero_lote}}</td>
-                        <td>{{row.op_referencia}}</td> 
-                        <td>{{row.item_referencia}}</td> 
-                        <td>{{"%.2f" % row.saldo_anterior}}</td>
-                        <td>{{"%.2f" % row.quantidade_movimento}}</td>
-                        <td>{{"%.2f" % row.saldo_atual}}</td>                     
+                        <td>{{row.item}}</td>
+                        <td>{{row.tipo}}</td>
+                        <td>{{row.lote_visual}}</td>
+                        <td>{{row.referencia}}</td> 
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.obs}}</td> 
                         <td>{{row.data_movimento}}</td>
-                        <td>{{row.hora_movimento}}</td> 
+                        <td>{{row.hora_movimento}}</td>
+                        <td>{{row.usuario}}</td>
                     </tr>
                     {% endfor %}
                 </table>

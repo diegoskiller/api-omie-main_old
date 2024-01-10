@@ -4,20 +4,6 @@
 {% block title %} Home {% endblock %}
 
 {% block body %}
-<div class="container w-100 mt-1">
-
-    {% with messages=get_flashed_messages(with_categories=true) %}
-    {%if messages%}
-    {%for category, message in messages%}
-    <div class="alert alert-success">
-        {{message}}
-        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
-        </button>
-    </div>
-    {%endfor%}
-    {%endif%}
-    {%endwith%}
-</div>
 <body background="{{ url_for('static', filename='images/imagemFundo2.png')}}">
 <main class="cards margin-top">
     <section class="card contact">
@@ -34,7 +20,7 @@
         </div>
         <h3>Controle de OPs</h3>
         <span>Gerenciar ordens de produção</span>
-        <a href="{{ url_for('ordens_producao')}}"><button>Acessar</button></a>
+        <a href="{{ url_for('ordens_producao_visual')}}"><button>Acessar</button></a>
     </section>
     <section class="card shop">
         <div class="icon">
@@ -48,9 +34,9 @@
         <div class="icon">
             <img src="{{ url_for('static', filename='images/inboxes.svg')}}" alt="gerenciar estoque">
         </div>
-        <h3>Controle de estoque</h3>
+        <h3>Gerenciar Estoque</h3>
         <span>Gerenciamento de estoque</span>
-        <a href="{{ url_for('consulta_estoque')}}"><button>Acessar</button></a>
+        <a href="{{ url_for('gerenciar_estoque')}}"><button>Acessar</button></a>
     </section>
 </main>
 

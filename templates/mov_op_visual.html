@@ -2,28 +2,51 @@
 
 {% include 'header.html' %}
 
-{% block title %} estrutura da Op {% endblock %}
+{% block title %} Detalhes da Ordem de produção {% endblock %}
 {% block body %}
-
-<div class=" p-2 w-100 table-responsive margin-top"><p>
-    <h3 class="d-flex justify-content-center mt-2">Ordem de produção: {{op}}</h3>
-    <div class="input-group mb-3 d-flex justify-content-start">
-        <div class="input-group-append">
-            <a href="{{url_for('ordens_producao')}}" type="button" class="btn btn-success ms-2">Voltar</a>
-        </div>
+<p><p><p><p><p></p>
+<div class=" p-2 w-100 table-responsive margin-top"><p><p><p><p><p></p>
+    
+    <div class="input-group mb-3 d-flex justify-content-end">
+        <p><p><p><p><p></p>
+        <h3 class="d-flex justify-content-rigth mt-2">Ordem de produção: {{op}}</h3>
+        
+    </div>
+    <div class="input-group-append">
+        <a href="{{url_for('ordens_producao_visual')}}" type="button" class="btn btn-success ms-2">Voltar</a>
     </div>
 
     <table class="table">
         <tr class="bg-info info_estrutura">
-            {%for row in op_info%}
-            <td>OP Nº = {{ row.numero_op }}</td>
+            <!-- {%for row in op_info%} -->
+            <td>OP Nº = {{ row.numero_op_visual }}</td>
             <td>Item = {{ row.item }}</td>
-            <td>Item = {{ row.descrição }}</td>
-            <td>Qtd. OP: = {{ row.quantidade }}</td>
-            {%endfor%}
+            <td>{{ row.descrição }}</td> 
+            <td>Qtd: = {{ row.quantidade }}</td>
+            <td>Saldo de Peso = {{ row.peso_enviado - row.peso_retornado }}</td>
+            <td>Saldo de Fino = {{ row.fino_enviado - row.fino_retornado }}</td>
+            
+            
+            <!-- {%endfor%} -->
         </tr>
 
     </table>
+    <div class="border-top my-2"></div>
+    <h6>apontar um novo lote para essa OP</h6>
+
+    {%for i in op_info%}
+    {%if i.situação == "Aberta"%}
+    
+   
+    <button type="button" class="btn btn-success ms-1 d-flex justify-content-end" data-bs-toggle="modal"
+                    data-bs-target="#lote_Modal">Apontar Lote de produção</button>
+    
+    {% include 'lote_modal.html' %}
+    {%endif%}
+    {%endfor%}
+
+
+
     <div class="container_table table-responsive">
        
         <table class="table bcgrownd">
@@ -81,7 +104,7 @@
                             </form>
                         </div>
                         <div>
-                            <form action="/estrutura_op/{{numero_op}}{{row.numero_lote}}" method="post" type="hidden" >
+                            <form action="/estrutura_op/{{op}}/{{row.numero_lote}}" method="post" type="hidden" >
                                         <input type="hidden" name="item" value="{{i.item}}">
                                         <input type="hidden" name="numero_op" value="{{i.numero_op}}">
                                         <input type="hidden" name="numero_lote" value="{{row.numero_lote}}">
@@ -100,25 +123,7 @@
 
             
         </table>
-        <div class="border-top my-2"></div>
-        <h6>apontar um novo lote para essa OP</h6>
-
-        {%for i in op_info%}
-        {%if i.situação == "Aberta"%}
-        
        
-        <!-- <form action="{{url_for('adicionar_lote')}}" method="post">
-            <input type="hidden" name="referencia" value="{{i.numero_op}}">
-            <input type="hidden" name="item" value="{{i.item}}">
-            <input type="number" name="quantidade" placeholder="Quantidade do lote">
-            <button type="submit" class="btn btn-success ms-2 encerraOP">Apontar lote</button>
-        </form> -->
-        <button type="button" class="btn btn-success ms-1 d-flex justify-content-end" data-bs-toggle="modal"
-                        data-bs-target="#lote_Modal">Apontar Lote</button>
-        
-        {% include 'lote_modal.html' %}
-        {%endif%}
-        {%endfor%}
     </div>
     
     <div class="input-group mb-3 d-flex justify-content-end">

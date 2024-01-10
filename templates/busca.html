@@ -7,12 +7,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col md-12">
-            <div class="p-3">
+        <div class="col md-1">
+            <div class="p-1">
                 <div style="height: 10vh; width: 100%;">
                     <div class="container w-50 d-flex justify-content-center align-items-center">
                         <form method="POST" action="{{url_for('busca')}}" class="input-group">
-                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="search"
+                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="item"
                                 aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
                             <div class="input-group-append">
                                 <button class="btn btn-success" type="submit">Buscar</button>                                
@@ -23,31 +23,53 @@
                         </form>
                     </div>
                 </div>
-                <div class=" mh-50" style="overflow:auto; height: 60vh;">
+
+                <div class="container w-100">
+
+                    {% with messages=get_flashed_messages(with_categories=true) %}
+                    {%if messages%}
+                    {%for category, message in messages%}
+                    <div class="alert alert-success">
+                        {{message}}
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                    {%endfor%}
+                    {%endif%}
+                    {%endwith%}
+                </div>
+
+
+                <div  class="container w-100">
                     
-                    <table class="table table-hover table-dark">
+                    <table class="table table-hover table-info" class="flex">
 
                         <tr>
                             <th>Código</th>
                             <th>Descrição</th>
-                            <th>Código NCM</th>
+                            <th>Quantidade</th>
                             <th>Unidade</th>
-                            <th>Alterado por:</th>
-                            <th>Ação</th>
+                            <th>Cliente</th>
+                            <th>Código do Cliente</th>
+                            <th>liga</th>
                         </tr>
 
 
                         
                         <tr>
                             
-                            <td>{{busca.get("codigo")}}</td>
-                            <td>{{busca.get("descricao")}}</td>
-                            <td>{{busca.get("ncm")}}</td>
-                            <td>{{busca.get("unidade")}}</td>
-                            <td>{{busca.get("info").get("uAlt")}}</td>
+                            <td>{{busca[6]}}</td>
+                            <td>{{busca[5]}}</td>
+                            <td>{{busca[2]}}</td>
+                            <td>{{busca[3]}}</td>  
+                            <td>{{busca[7]}}</td>
+                            <td>{{busca[8]}}</td>
+                            <td>{{busca[9]}}</td>
+                            <!-- .get("info").get("uAlt")}}</td> -->
+                                <!-- .get("uAlt") -->
                             <td>
                                 <form action="{{ url_for('estrutura') }}" method="post"  class="btn btn-info btn-xs" >
-                                    <button name="item"  value="{{busca.get('codigo')}}" ><img
+                                    <button name="item"  value="{{busca[6]}}" ><img
                                         src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button></form>
                                 <a href="update/{{busca.codigo}}" class="editItem btn btn-warning btn-xs" data-bs-toggle="modal"
                                     data-bs-target="#edit_item_Modal{{busca.codigo}}"><img

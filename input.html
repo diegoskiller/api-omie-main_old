@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passar Valor</title>
+</head>
+<body>
+
+    <h2>Passar Valor</h2>
+
+    <!-- Formulário com um campo de entrada e um botão -->
+    <form id="meuFormulario">
+        <label for="campoValor">Valor:</label>
+        <input type="text" id="campoValor" name="campoValor">
+
+        <button type="button" onclick="passarValor()">Passar Valor</button>
+    </form>
+
+    <!-- Script JavaScript para atribuir um valor ao campo de entrada -->
+    <script>
+        function passarValor() {
+            // Atribuir o valor desejado ao campo de entrada
+            document.getElementById("campoValor").value = "deu certo";
+        }
+    </script>
+
+</body>
+</html>
+
