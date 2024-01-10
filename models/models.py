@@ -15,8 +15,8 @@ class Ops(db.Model):
     item = db.Column(db.String(50))
     descrição = db.Column(db.String(255))
     quantidade = db.Column(db.Integer)
-    data_abertura = db.Column(db.String)
-    hora_abertura = db.Column(db.String)
+    data_abertura = db.Column(db.String(255))
+    hora_abertura = db.Column(db.String(255))
 
     lotes = db.relationship('Lote', backref='ops', lazy=True)
 
@@ -43,8 +43,8 @@ class Lote(db.Model):
     numero_lote = db.Column(db.String(50), nullable=False)
     quantidade = db.Column(db.Integer, nullable=False)
     peso = db.Column(db.Integer, nullable=False)
-    data_fabricacao = db.Column(db.String, nullable=False)
-    data_validade = db.Column(db.String, nullable=False)
+    data_fabricacao = db.Column(db.String(255), nullable=False)
+    data_validade = db.Column(db.String(255), nullable=False)
 
 
     def __init__(self, op_referencia, lote, numero_lote, quantidade, peso, data_fabricacao, data_validade):
@@ -94,8 +94,8 @@ class Movimentos_estoque(db.Model):
     saldo_anterior = db.Column(db.Integer)
     quantidade_movimento = db.Column(db.Integer)
     saldo_atual = db.Column(db.Integer)
-    data_movimento = db.Column(db.String)
-    hora_movimento = db.Column(db.String)
+    data_movimento = db.Column(db.String(255))
+    hora_movimento = db.Column(db.String(255))
 
     def __init__(self, item_movimento, numero_lote, descricao, op_referencia, 
                 item_referencia, saldo_anterior, quantidade_movimento, saldo_atual,  data_movimento, hora_movimento):  
