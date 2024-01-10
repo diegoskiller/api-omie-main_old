@@ -9,7 +9,7 @@
     <h3 class="d-flex justify-content-center mt-2">Ordem de produção: {{op}}</h3>
     <div class="input-group mb-3 d-flex justify-content-start">
         <div class="input-group-append">
-            <a href="{{url_for('ordens_producao')}}" type="button" class="btn btn-success ms-2">Voltar</a>
+            <a href="{{url_for('ordens_producao_visual')}}" type="button" class="btn btn-success ms-2">Voltar</a>
         </div>
     </div>
 
@@ -114,9 +114,9 @@
             <button type="submit" class="btn btn-success ms-2 encerraOP">Apontar lote</button>
         </form> -->
         <button type="button" class="btn btn-success ms-1 d-flex justify-content-end" data-bs-toggle="modal"
-                        data-bs-target="#lote_Modal">Apontar Lote</button>
+                        data-bs-target="#lote_geral_Modal">Apontar Lote</button>
         
-        {% include 'lote_modal.html' %}
+        {% include 'lote_geral_modal.html' %}
         {%endif%}
         {%endfor%}
     </div>

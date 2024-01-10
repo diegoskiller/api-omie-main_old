@@ -82,7 +82,7 @@ class Lote_visual(db.Model):
     quantidade = db.Column(db.Integer, nullable=False)
     peso = db.Column(db.Integer, nullable=False)
     fino = db.Column(db.Integer, nullable=False)
-    local = db.Column(db.Integer, nullable=False)
+    local = db.Column(db.String(250), nullable=False)
     obs = db.Column(db.String(250))
     data_criacao = db.Column(db.String(50), nullable=False)
     
@@ -213,8 +213,7 @@ class User(db.Model, UserMixin):
         self.password = password
         self.name = name
 
-        db.create_all()
-        db.session.commit()
+
 
     def __repr__(self):
         return "<User %r>" % self.email
@@ -258,5 +257,4 @@ class Saldo_por_posicao(db.Model):
                 'posicao': self.posicao,
                 'data_hora': data_hora_fmt}
 
-db.create_all()
-db.session.commit()
+

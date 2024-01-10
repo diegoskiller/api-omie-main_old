@@ -417,7 +417,7 @@ def op(numero_op_visual):
     op_info = Ops_visual.query.filter_by(numero_op_visual = op).all()
     estrutura_op = Def_consulta_estrutura(item)
     
-    return render_template("mov_op_visual.html", lotes=lotes, ref=ref, op_info=op_info, op=op, estrutura_op= estrutura_op, mov_op = mov_op)
+    return render_template("lotes.html", lotes=lotes, ref=ref, op_info=op_info, op=op, estrutura_op= estrutura_op, mov_op = mov_op)
 
 
 @app.route('/adicionar_lote', methods = ['GET','POST'])
@@ -1092,14 +1092,19 @@ def Def_consulta_estrutura(item):
 #===================numero de op==================#
 
 def Def_numero_op():
+    numero = Sequencia_op.query.get('ops_numero')
+    
+    if numero is None:
+        numero = Sequencia_op(tabela_campo='ops_numero', valor=10000, valor_anterior=9999)
+        db.session.add(numero)
+        db.session.commit()
+    else:
+        numero_op = numero.valor + 1
+        numero.valor = numero.valor + 1
+        numero.valor_anterior = numero.valor - 1
+        db.session.commit()
 
- numero = Sequencia_op.query.get('ops_numero') 
- numero_op = numero.valor + 1
- numero.valor = numero.valor + 1
- numero.valor_anterior = numero.valor - 1
- db.session.commit()
- 
- return numero_op
+    return numero.valor
 #===================numero de lote==================#
 
 def Def_numero_lote(op):
@@ -1224,6 +1229,9 @@ def Def_descricao(item):
 
 
 if __name__ == "__main__":
-    app.run(port=3333, debug=True)
+    with app.app_context():
+        db.create_all()
+        db.session.commit()
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
  

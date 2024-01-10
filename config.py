@@ -4,14 +4,14 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import os
-from dotenv import load_dotenv
 import pymysql
+from dotenv import load_dotenv
 
 from flask_cors import CORS
 
 load_dotenv()
 
-app = Flask (name)
+app = Flask (__name__)
 db = SQLAlchemy(app)
 CORS(app)
 
