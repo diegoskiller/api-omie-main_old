@@ -4,6 +4,20 @@
 {% block title %} Home {% endblock %}
 
 {% block body %}
+<div class="container w-100 mt-1">
+
+    {% with messages=get_flashed_messages(with_categories=true) %}
+    {%if messages%}
+    {%for category, message in messages%}
+    <div class="alert alert-success">
+        {{message}}
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+</div>
 <body background="{{ url_for('static', filename='images/imagemFundo2.png')}}">
 <main class="cards margin-top">
     <section class="card contact">
