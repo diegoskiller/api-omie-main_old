@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block title %} Consulta de estoque {% endblock %}
+{% block body %}
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
+<div style="height: 10vh; width: 100%;">
+  <h2 class="d-flex justify-content-center mt-2"><strong>Consulta de saldo por Setor</strong></h2>
+  <div class="container w-50 d-flex justify-content-center align-items-center">
+      <form method="POST" action="{{url_for('posicoes_estoque_omie')}}" class="input-group">
+          <input type="search" class="form-control" placeholder="Pesquisar por item" name="estoque"
+              aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+          <div class="input-group-append">
+              <button class="btn btn-success" type="submit">Buscar</button>                                
+              <a href="{{url_for('index')}}" type="button" class="btn btn-success ms-2">Página Inicial</a>
+          </div>
+  
+      </form>
+  </div>
+</div>
+
+<p></p><p></p><p></p><p></p>
+<div  class="position-absolute top-15 start-55">
+
+    <table class="table table table-striped table-black">
+      <tr class="table-light">                        
+      <th>{{frase}}</th>
+      </tr>
+    </table>
+</div>
+
+<div class="posições">
+    <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="#aba1" data-bs-toggle="tab">Almoxarifado 1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba2" data-bs-toggle="tab">Acabamento</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba3" data-bs-toggle="tab">Seleção</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba4" data-bs-toggle="tab">Qualidade</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba5" data-bs-toggle="tab">Embalagem</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="aba1">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                        
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Unidade</th>
+                        <th>Tipo</th>
+                        <th>Cliente</th>
+                        <th>Código do Cliente</th>
+                                            
+                    </tr>
+
+
+                    <tr>                      
+                        <td>{{prodlocal[6][1]}}</td>
+                        <td>{{prodlocal[5][1]}}</td>
+                        <td style="text-align: center">{{qtda1}}</td>
+                        <td>{{unidade}}</td> 
+                        <td>{{prodlocal[1][1]}}</td>
+                        <td>{{prodlocal[7][1]}}</td>
+                        <td>{{prodlocal[8][1]}}</td>
+                        
+                        
+                        <td>
+                          
+                        </td>
+                    </tr>
+                    
+                 
+                </table>
+
+            </div>
+            
+
+          
+         
+        </div>
+    
+    </div>
+    <div class="tab-pane" id="aba2">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                      <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Unidade</th>
+                        <th>Tipo</th>
+                        <th>Cliente</th>
+                        <th>Código do Cliente</th>
+                                            
+                    </tr>
+
+
+                    <tr>                      
+                        <td>{{prodlocal[6][1]}}</td>
+                        <td>{{prodlocal[5][1]}}</td>
+                        <td style="text-align: center">{{qtdac}}</td>
+                        <td>{{unidade}}</td> 
+                        <td>{{prodlocal[1][1]}}</td>
+                        <td>{{prodlocal[7][1]}}</td>
+                        <td>{{prodlocal[8][1]}}</td>
+                    </tr>
+                    </table>
+
+            </div>
+            
+
+            
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="aba3">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                      <th>Item</th>
+                      <th>Descrição</th>
+                      <th>Quantidade</th>
+                      <th>Unidade</th>
+                      <th>Tipo</th>
+                      <th>Cliente</th>
+                      <th>Código do Cliente</th>
+                                          
+                  </tr>
+
+
+                  <tr>                      
+                      <td>{{prodlocal[6][1]}}</td>
+                      <td>{{prodlocal[5][1]}}</td>
+                      <td style="text-align: center">{{qtdse}}</td>
+                      <td>{{unidade}}</td> 
+                      <td>{{prodlocal[1][1]}}</td>
+                      <td>{{prodlocal[7][1]}}</td>
+                      <td>{{prodlocal[8][1]}}</td>
+                    </tr>
+                   </table>
+
+            </div>
+            
+
+            
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="aba4">
+      
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                      <th>Item</th>
+                      <th>Descrição</th>
+                      <th>Quantidade</th>
+                      <th>Unidade</th>
+                      <th>Tipo</th>
+                      <th>Cliente</th>
+                      <th>Código do Cliente</th>
+                                          
+                  </tr>
+
+
+                  <tr>                      
+                      <td>{{prodlocal[6][1]}}</td>
+                      <td>{{prodlocal[5][1]}}</td>
+                      <td style="text-align: center">{{qtdcq}}</td>
+                      <td>{{unidade}}</td> 
+                      <td>{{prodlocal[1][1]}}</td>
+                      <td>{{prodlocal[7][1]}}</td>
+                      <td>{{prodlocal[8][1]}}</td>
+                    </tr>
+                </table>
+
+            </div>
+            
+
+            </div>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="aba5">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                      <th>Item</th>
+                      <th>Descrição</th>
+                      <th>Quantidade</th>
+                      <th>Unidade</th>
+                      <th>Tipo</th>
+                      <th>Cliente</th>
+                      <th>Código do Cliente</th>
+                                          
+                  </tr>
+
+
+                  <tr>                      
+                      <td>{{prodlocal[6][1]}}</td>
+                      <td>{{prodlocal[5][1]}}</td>
+                      <td style="text-align: center">{{qtdas}}</td>
+                      <td>{{unidade}}</td> 
+                      <td>{{prodlocal[1][1]}}</td>
+                      <td>{{prodlocal[7][1]}}</td>
+                      <td>{{prodlocal[8][1]}}</td>
+                    </tr>
+                </table>
+
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  {% endblock %}

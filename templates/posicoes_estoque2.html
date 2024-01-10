@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block title %} Consulta de estoque {% endblock %}
+{% block body %}
+
+<div class="posições">
+  <h2 class="d-flex justify-content-center mt-2"><strong>Consulta de saldo de produto acabado</strong></h2>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="#aba1" data-bs-toggle="tab">Todos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba2" data-bs-toggle="tab">Acabamento</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba3" data-bs-toggle="tab">Separação</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba4" data-bs-toggle="tab">Qualidade</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#aba5" data-bs-toggle="tab">Estoque</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="aba1">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Op</th>
+                        <th>Lote</th>
+                        <th>Operador</th>                         
+                        <th>Posição</th> 
+                        <th>Data e Hora</th> 
+                        <th>Transferir</th> 
+                    </tr>
+
+
+                    {% for row in posicoes.items %}
+                    <tr>                      
+                        <td>{{row.id}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descricao}}</td>
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.op}}</td> 
+                        <td>{{row.lote}}</td> 
+                        <td>{{row.operador}}</td>
+                        <td>{{row.posicao}}</td>
+                        <td>{{row.data_hora}}</td> 
+                        <td>
+                          <div>
+                            <a href="transferir_saldo_posicao/{{row.id}}" class="editItem btn btn-info btn-xs " data-bs-toggle="modal"
+                                data-bs-target="#transferir_lote_Modal{{row.id}}"><img
+                                src="{{url_for('static', filename='images/arrow-right.svg')}}" alt="">
+                            </a>
+                            <!-- <button type="button" class="btn btn-success ms-1 d-flex justify-content-end" data-bs-toggle="modal"
+                                data-bs-target="#transferir_lote_Modal">Apontar Lote</button> -->
+                          </div>
+                        </td>
+                    </tr>
+                    {% include 'transferir_lote_modal.html' %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            
+
+            {% for page_num in posicoes.iter_pages(left_edge=1, right_edge=1,
+                left_current=1, right_current=2) %} {% if page_num %} {% if posicoes.page ==
+                page_num %}
+                <a
+                  class="btn btn-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% else %}
+                <a
+                  class="btn btn-outline-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% endif %} {% else %} ... {% endif %} {% endfor %}
+         
+        </div>
+    </div>
+    </div>
+    <div class="tab-pane" id="aba2">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Op</th>
+                        <th>Lote</th>
+                        <th>Operador</th> 
+                        <th>Posição</th> 
+                        <th>Data e Hora</th> 
+                    </tr>
+
+
+                    {% for row in posicoes.items %}
+                    {% if row.posicao == "acabamento" %}
+                    <tr>                      
+                        <td>{{row.id}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descricao}}</td>
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.op}}</td> 
+                        <td>{{row.lote}}</td> 
+                        <td>{{row.operador}}</td>
+                        <td>{{row.posicao}}</td>
+                        <td>{{row.data_hora}}</td> 
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            
+
+            {% for page_num in posicoes.iter_pages(left_edge=1, right_edge=1,
+                left_current=1, right_current=2) %} {% if page_num %} {% if posicoes.page ==
+                page_num %}
+                <a
+                  class="btn btn-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% else %}
+                <a
+                  class="btn btn-outline-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% endif %} {% else %} ... {% endif %} {% endfor %}
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="aba3">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Op</th>
+                        <th>Lote</th>
+                        <th>Operador</th> 
+                        <th>Posição</th> 
+                        <th>Data e Hora</th> 
+                    </tr>
+
+
+                    {% for row in posicoes.items %}
+                    {% if row.posicao == "separacao" %}
+                    <tr>                      
+                        <td>{{row.id}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descricao}}</td>
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.op}}</td> 
+                        <td>{{row.lote}}</td> 
+                        <td>{{row.operador}}</td>
+                        <td>{{row.posicao}}</td>
+                        <td>{{row.data_hora}}</td> 
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            
+
+            {% for page_num in posicoes.iter_pages(left_edge=1, right_edge=1,
+                left_current=1, right_current=2) %} {% if page_num %} {% if posicoes.page ==
+                page_num %}
+                <a
+                  class="btn btn-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% else %}
+                <a
+                  class="btn btn-outline-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% endif %} {% else %} ... {% endif %} {% endfor %}
+         
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="aba4">
+      
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Op</th>
+                        <th>Lote</th>
+                        <th>Operador</th> 
+                        <th>Posição</th> 
+                        <th>Data e Hora</th> 
+                    </tr>
+
+
+                    {% for row in posicoes.items %}
+                    {% if row.posicao == "qualidade" %}
+                    <tr>                      
+                        <td>{{row.id}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descricao}}</td>
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.op}}</td> 
+                        <td>{{row.lote}}</td> 
+                        <td>{{row.operador}}</td>
+                        <td>{{row.posicao}}</td>
+                        <td>{{row.data_hora}}</td> 
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            
+
+            {% for page_num in posicoes.iter_pages(left_edge=1, right_edge=1,
+                left_current=1, right_current=2) %} {% if page_num %} {% if posicoes.page ==
+                page_num %}
+                <a
+                  class="btn btn-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% else %}
+                <a
+                  class="btn btn-outline-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% endif %} {% else %} ... {% endif %} {% endfor %}
+         
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="aba5">
+      <div class="row">
+        <div class="col">
+            <div class="table-responsive container_table">
+                
+                
+                <table class="table table table-striped table-secondary">
+
+                    <tr class="table-success">                        
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Op</th>
+                        <th>Lote</th>
+                        <th>Operador</th> 
+                        <th>Posição</th> 
+                        <th>Data e Hora</th> 
+                    </tr>
+
+
+                    {% for row in posicoes.items %}
+                    {% if row.posicao == "estoque" %}
+                    <tr>                      
+                        <td>{{row.id}}</td>
+                        <td>{{row.item}}</td>
+                        <td>{{row.descricao}}</td>
+                        <td>{{row.quantidade}}</td>
+                        <td>{{row.op}}</td> 
+                        <td>{{row.lote}}</td> 
+                        <td>{{row.operador}}</td>
+                        <td>{{row.posicao}}</td>
+                        <td>{{row.data_hora}}</td> 
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            
+
+            {% for page_num in posicoes.iter_pages(left_edge=1, right_edge=1,
+                left_current=1, right_current=2) %} {% if page_num %} {% if posicoes.page ==
+                page_num %}
+                <a
+                  class="btn btn-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% else %}
+                <a
+                  class="btn btn-outline-dark mb-4"
+                  href="{{ url_for('lista_movimento', page=page_num) }}"
+                  >{{ page_num }}</a
+                >
+                {% endif %} {% else %} ... {% endif %} {% endfor %}
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  {% endblock %}

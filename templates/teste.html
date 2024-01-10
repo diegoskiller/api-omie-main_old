@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Lista de itens {% endblock %}
+{% block body %}
+
+
+
+<form method="POST" action="{{url_for('teste_diego')}}" class="input-group">
+    <input type="search" class="form-control" placeholder="Pesquisar por item" name="teste_item"
+        aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+    <div class="input-group-append">
+        <button class="btn btn-info" type="submit">testar</button>
+    </div>
+</form>
+
+
+
+
+<table class="table table-light table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Codigo Familia</th>
+        <th scope="col">id produto</th>
+        <th scope="col">Estoque</th>
+        <th scope="col">Unidade</th>
+
+      </tr>
+    </thead>
+    
+
+
+    
+    <tbody>
+      <tr>
+        <td>{{teste.codigo}}</td>
+        <th scope="row">{{teste.descricao}}</th>
+        <td>{{operacao}}</td>
+        <td>{{id_produto}}</td>
+        <td>{{saldoFisico}}</td>
+        <td>{{teste.unidade}}</td>
+         <td style="width: 0px;">
+          <div>
+                  <form action="{{url_for('teste_saldo')}}" method="post" type="hidden" >    
+                      <button type="submit" class="btn btn-primary btn-xs">
+                        <input type="hidden" name="teste_saldo" value="{{id_produto}}">
+                        <img src="{{url_for('static', filename='images/plus-lg.svg')}}" alt="">
+                      </button>                           
+                  </form>
+                </td>
+
+             <td style="width: 0px;">  
+                  <form action="{{url_for('cadastro_prod')}}" method="post" type="hidden" >    
+                      <button type="submit" class="btn btn-success btn-xs">
+                        <input type="hidden" name="item" value="{{teste.codigo}}">
+                        <img src="{{url_for('static', filename='images/inboxes.svg')}}" alt="">
+                      </button>                           
+                  </form>
+              </div>
+                
+
+                       
+        
+     
+        </td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% block body %}
+
+<div class="modal fade" id="transferir_lote_Modal{{row.id}}"  role="dialog" data-bs-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Transferir Lote</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 for="recipient-name" class="col-form-label">Transferir lote: {{row.lote}}</h2>
+                    
+
+                <h2 for="recipient-name" class="col-form-label">De : {{row.posicao}}</h2>
+                <form action="{{ url_for('transferir_saldo_posicao')}}" method="POST" class="submit">
+                        <input type="hidden" name="id" value="{{row.id}}">
+                        <label for="recipient-name" class="col-form-label">Para:</label>
+                        <select class="form-select" aria-label="Default select example" name="posicao">
+                            <option selected disabled>Selecione o destino</option>
+                            <option value="acabamento">Acabamento</option>
+                            <option value="separacao">Separação</option>
+                            <option value="qualidade">Qualidade</option>
+                            <option value="estoque">Estoque</option>
+                        </select> 
+       
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();">Transferir Lote</button>
+                    </div>
+                    
+                </form>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}
+
+<style>
+  body {
+    background-color: #F2F2F2;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("/static/images/360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg")!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-position: center;
+  }
+  </style>
+<div class="container w-50 vh-100 pt-5">
+    <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <fieldset>
+        <legend>Cadastre-se agora</legend>
+        <div class="form-group">
+          {{form.email.label(class="form-control-label")}} 
+          {%if form.email.errors%}
+          {{form.email(class="form-control form-control-lg is-invalid")}}
+            {%for error in form.email.errors%}
+              <span>{{error}}</span>
+            {%endfor%}
+            {%else%}
+            {{form.email(class="form-control form-control-lg")}}
+          {%endif%}
+        </div>
+        <div class="form-group">
+          {{form.name.label(class="form-control-label")}} 
+          {%if form.name.errors%}
+          {{form.name(class="form-control form-control-lg is-invalid")}}
+            {%for error in form.name.errors%}
+              <span>{{error}}</span>
+            {%endfor%}
+            {%else%}
+            {{form.name(class="form-control form-control-lg")}}
+          {%endif%}
+        </div>       
+        <div class="form-group">
+          {{form.password.label(class="form-control-label")}} 
+          {%if form.password.errors%}
+          {{form.password(class="form-control form-control-lg is-invalid")}}
+            {%for error in form.password.errors%}
+              <span>{{error}}</span>
+            {%endfor%}
+            {%else%}
+            {{form.password(class="form-control form-control-lg")}}
+          {%endif%}
+        </div>
+        <div class="form-group">
+          {{form.confirm_password.label(class="form-control-label")}} 
+          {%if form.confirm_password.errors%}
+          {{form.confirm_password(class="form-control form-control-lg is-invalid")}}
+            {%for error in form.confirm_password.errors%}
+              <span>{{error}}</span>
+            {%endfor%}
+            {%else%}
+            {{form.confirm_password(class="form-control form-control-lg")}}
+          {%endif%}
+        </div>
+      </fieldset>
+      <div class="field-group mt-3">
+        {{form.submit(class='btn btn-primary')}}
+
+      </div>
+    </form>
+
+    <a class="d-block text-center mt-2 small" href="{{ url_for('login')}}">já possui conta? Entrar</a>
+
+  </div>
+
+{% endblock %}

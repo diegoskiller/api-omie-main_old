@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista de Itens {% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+<nav class="navbar navbar-expand-lg  navbar-light bg-light w-100 fixed-top header  border-bottom border-2 border-dark">
+  <img src="{{ url_for('static', filename='images/logo-iso.png')}}" width = 200 alt="logo">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+
+          <a class="nav-link card-menu text-center" href="{{url_for('index')}}"> Ínicio Home</a>   
+
+          <a class="nav-link card-menu text-center" href="{{ url_for('itens')}}">Itens e Estruturas</a>
+     
+          <a class="nav-link card-menu text-center" href="{{ url_for('ordens_producao')}}">Ordens Produção</a>
+     
+          <a class="nav-link card-menu text-center" href="{{ url_for('consulta_estoque')}}">Controle Estoque</a>
+       
+          <a class="nav-link card-menu text-center" href="{{ url_for('posicoes_estoque')}}">Transf. interna</a>
+      
+          <a class="nav-link card-menu text-center" href="{{ url_for('posicoes_estoque_omie')}}">Posição Estoque.</a>
+      
+      
+    </div>
+    <div class="usuario"><p> Bem vindo: {{ current_user.name }} | <a href="/logout">Sair</a> </p></div>
+    
+  </nav>
+</div>
+
+
+
+{% endblock %}

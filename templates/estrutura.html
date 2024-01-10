@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block title %} estrutura {% endblock %}
+{% block body %}
+
+
+
+
+<div class="w-100 margin-top p-1">
+    <div class="row">
+        <div class="col md-12">
+            <div class="p-1">
+                <h2 class=" d-flex justify-content-center"><strong>Estruturas de Produtos</strong></h2>
+                <div class="page-top-itens">
+                    <div class="container w-100 d-flex justify-content-end">
+       
+                    <div class="input-group-append">
+                        <a href="{{url_for('itens')}}" type="button" class="btn btn-success ms-2">Voltar</a>
+                    </div>
+                    </div>
+
+    <div class="container w-100">
+
+        {% with messages=get_flashed_messages(with_categories=true) %}
+        {%if messages%}
+        {%for category, message in messages%}
+        <div class="alert alert-success">
+            {{message}}
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
+    </div>
+</div>
+<div class="container_table">
+
+
+
+
+
+
+
+
+    <div style=" overflow-x: auto;">
+        
+        <table class="table table-striped w-100">
+
+            <tr class="bg-info">
+            {% if estrutura.get('ident') == None %}
+                    <h1>Item sem estrutura cadastrada</h1>
+                
+                {%else%}
+                    <td>{{ estrutura.get("ident").get("codProduto")}}</td>
+                    <td>{{ estrutura.get("ident").get("descrFamilia")}}</td>
+                    <td>{{ estrutura.get("ident").get("descrProduto")}}</td>
+                    <td>{{ estrutura.get("ident").get("unidProduto")}}</td>
+                {%endif%}
+            </tr>
+
+        </table>
+    
+        <table class="table table-striped" style="white-space: nowrap;">
+            <tr class="bg-secondary">
+                <td>Desc. Familia</td>
+                <td>Desc. Produto</td>
+                <td>Id. Familia</td>
+                <td>Id. Malha</td>
+                <td>Id. Produto</td>
+                <td>intProdMalha</td>
+                <td>Perc. Perda</td>
+                <td>Peso Bruto</td>
+                <td>Peso Liquido</td>
+                <td>Quant. Produto</td>
+                <td>Tipo Produto</td>
+                <td>uAltProdMalha</td>
+                <td>uIncProdMalha</td>
+                <td>unidProdMalha</td>
+            </tr>
+            {%for row in estrutura["itens"]%}
+            <tbody id="myTable">
+                <td>{{ row.get("descrFamMalha")}}</td>
+                <td>{{ row.get("descrProdMalha")}}</td>
+                <td>{{ row.get("idFamMalha")}}</td>
+                <td>{{ row.get("idMalha")}}</td>
+                <td>{{ row.get("idProdMalha")}}</td>
+                <td>{{ row.get("intProdMalha")}}</td>
+                <td>{{ row.get("percPerdaProdMalha")}}</td>
+                <td>{{ row.get("pesoBrutoProdMalha")}}</td>
+                <td>{{ row.get("pesoLiqProdMalha")}}</td>
+                <td>{{ row.get("quantProdMalha")}}</td>
+                <td>{{ row.get("tipoProdMalha")}}</td>
+                <td>{{ row.get("uAltProdMalha")}}</td>
+                <td>{{ row.get("uIncProdMalha")}}</td>
+                <td>{{ row.get("unidProdMalha")}}</td>
+            </tbody>
+            {%endfor%}
+        </table>
+    </div>
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

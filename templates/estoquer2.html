@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} controle de estoque {% endblock %}
+{% block body %}
+
+<div class="w-100 margin-top p-1">
+    <div class="row">
+        <div class="col md-12">
+            <div class="p-1">
+                <h2 class=" d-flex justify-content-center"><strong>Consulta de Saldo</strong></h2>
+                <div class="page-top-itens">
+                    <div class="container w-100 d-flex justify-content-center">
+                        <form method="POST" action="{{url_for('estoque')}}" class="input-group">
+                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="estoque"
+                                aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="submit">Buscar</button>                                
+                                <a href="{{url_for('index')}}" type="button" class="btn btn-success ms-2">Página Inicial</a>
+                            </div>
+                    
+                        </form>
+                    </div>
+
+                    
+
+                    <div class="container w-100">
+
+                        {% with messages=get_flashed_messages(with_categories=true) %}
+                        {%if messages%}
+                        {%for category, message in messages%}
+                        <div class="alert alert-success">
+                            {{message}}
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                        </div>
+                        {%endfor%}
+                        {%endif%}
+                        {%endwith%}
+                    </div>
+                </div>
+                <div class="container_table">
+                    
+                    <table class="table table-hover table-info">
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Estoque</th>
+                            <th>Unidade</th>
+                            
+                        </tr>
+                    
+                        <tr>
+                            
+                            <td>{{item}}</td>
+                            <td>{{descricao}}</td>
+                            <td>{{tipo}}</td>
+                            <td>{{saldoFisico}}</td> 
+                            <td>{{unidade}}</td>
+                            
+                        </tr>
+
+                       
+                    </table>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

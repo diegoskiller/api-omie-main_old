@@ -1,0 +1,17 @@
+APP_KEY = '706444293555'
+APP_SECRET = 'a51654af368ec4e34129dab2b017dab7'
+
+
+
+
+"id_prod": 2424607209,
+
+
+
+{%for row in estoque["listaEstoque"]%} -->
+                            <!-- <td>{{row.get("nSaldo")}}</td>                           
+                            <td>{{row.get("reservado")}}</td>
+                            <td>{{row.get("fisico")}}</td>
+                            <td>{{row.get("nEstoqueMinimo")}}</td>
+                            {%endfor%}                        
+

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Lista de itens {% endblock %}
+{% block body %}
+
+
+
+<form method="POST" action="{{url_for('teste_saldo')}}" class="input-group">
+    <input type="search" class="form-control" placeholder="Pesquisar por item" name="teste_saldo"
+        aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+    <div class="input-group-append">
+        <button class="btn btn-danger" type="submit">Consultar Estoque</button>
+    </div>
+</form>
+
+
+
+
+<table class="table table-secondary">
+    <thead>
+      <tr>
+        <th scope="col">id-Codigo</th>
+        <th scope="col">Saldo no /estoque</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr>
+        <td>{{id_prod}}</td>
+        <td>{{saldoFisico}}</td>
+        
+        
+      </tr>
+    
+    </tbody>
+  </table>
+  {{saldo}}teste
+
+
+
+
+  {% endblock %}

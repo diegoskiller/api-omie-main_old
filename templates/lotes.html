@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block title %} estrutura da Op {% endblock %}
+{% block body %}
+
+<div class=" p-2 w-100 table-responsive margin-top"><p>
+    <h3 class="d-flex justify-content-center mt-2">Ordem de produção: {{op}}</h3>
+    <div class="input-group mb-3 d-flex justify-content-start">
+        <div class="input-group-append">
+            <a href="{{url_for('ordens_producao')}}" type="button" class="btn btn-success ms-2">Voltar</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr class="bg-info info_estrutura">
+            {%for row in op_info%}
+            <td>OP Nº = {{ row.numero_op }}</td>
+            <td>Item = {{ row.item }}</td>
+            <td>Item = {{ row.descrição }}</td>
+            <td>Qtd. OP: = {{ row.quantidade }}</td>
+            {%endfor%}
+        </tr>
+
+    </table>
+    <div class="container_table table-responsive">
+       
+        <table class="table bcgrownd">
+            <tr class="bg-secondary">
+                <td>Numero OP</td>
+                <td>Numero Lote</td>
+                <td>Quantidade Lote</td>
+                <td>Data Fabricação</td>
+                <td>Data Validade</td>
+                <td>Posição</td>
+                <td>Ações</td>
+            </tr>
+            {%for row in lotes%}
+            <tr class="bg-muted">
+                
+                <td>{{ row.op_referencia }}</td>
+                <td>{{ row.numero_lote }}</td>         
+                <td>{{ row.quantidade }}</td>                       
+                <td>{{ row.data_fabricacao }}</td>  
+                <td>{{ row.data_validade }}</td>  
+                {%for i in op_info%}        
+                {%if i.situação == "Aberta"%}   
+                <td>
+                     <form action="/movimentos_posicaos" method="post">
+                        <select class="form-select" aria-label="Default select example" name="posicao">
+                            <!-- <option selected>Posição</option> -->
+                            <option value="acabamento">Acabamento</option>
+                            <option value="separacao">Separação</option>
+                            <option value="qualidade">Qualidade</option>
+                            <option value="estoque">Estoque</option>
+                        </select> 
+                </td>
+                <td>
+                    <div class="icons">
+                        <div>
+                               
+                                <input type="hidden" name="item" value="{{i.item}}">
+                                <input type="hidden" name="descricao" value="{{i.descrição}}">
+                                <input type="hidden" name="quantidade_lote" value="{{row.quantidade}}"> 
+                                <input type="hidden" name="op_lote" value="{{row.op_referencia}}"> 
+                                <input type="hidden" name="lote" value="{{row.numero_lote}}">   
+                                <input type="hidden" name="operador" value="Operador1">                               
+                                <button type="submit" class="editItem btn btn-success btn-xs">
+                                    Transferir saldo
+                                </button>                           
+                            </form>
+                        </div>
+                        <div>
+                        
+                            <form action="{{url_for('deleta_lote')}}" method="post" type="hidden" >
+                                <input type="hidden" name="id" value="{{row.id}}">     
+                                <button type="submit" class="btn btn-danger btn-xs"><img
+                                    src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt="">
+                                </button>                           
+                            </form>
+                        </div>
+                        <div>
+                            <form action="/estrutura_op/{{numero_op}}{{row.numero_lote}}" method="post" type="hidden" >
+                                        <input type="hidden" name="item" value="{{i.item}}">
+                                        <input type="hidden" name="numero_op" value="{{i.numero_op}}">
+                                        <input type="hidden" name="numero_lote" value="{{row.numero_lote}}">
+                                        <input type="hidden" name="op_qtd" value="{{row.quantidade}}">
+                                        <input type="hidden" name="descricao" value="{{i.descrição}}">     
+                                        <button type="submit" class="btn btn-info btn-xs"><img
+                                src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button>                           
+                            </form>
+                        </div>
+                    </div>
+                </td>
+                {%endif%}
+                {%endfor%}
+            </tr>
+            {%endfor%}
+
+            
+        </table>
+        <div class="border-top my-2"></div>
+        <h6>apontar um novo lote para essa OP</h6>
+
+        {%for i in op_info%}
+        {%if i.situação == "Aberta"%}
+        
+       
+        <!-- <form action="{{url_for('adicionar_lote')}}" method="post">
+            <input type="hidden" name="op_referencia" value="{{i.numero_op}}">
+            <input type="hidden" name="item" value="{{i.item}}">
+            <input type="number" name="quantidade" placeholder="Quantidade do lote">
+            <button type="submit" class="btn btn-success ms-2 encerraOP">Apontar lote</button>
+        </form> -->
+        <button type="button" class="btn btn-success ms-1 d-flex justify-content-end" data-bs-toggle="modal"
+                        data-bs-target="#lote_Modal">Apontar Lote</button>
+        
+        {% include 'lote_modal.html' %}
+        {%endif%}
+        {%endfor%}
+    </div>
+    
+    <div class="input-group mb-3 d-flex justify-content-end">
+        <div class="input-group-append">
+            {%for row in op_info%}
+            
+            {% if row.situação == "Encerrada" %}
+            <form action="{{url_for('encerra_op')}}" method="post">
+                <input type="hidden" name="id" value="{{row.id}}">
+                <input type="hidden" name="situacao" value="Aberta">
+                <button type="submit" class="btn btn-secondary ms-2 encerraOP">Reabrir OP</button>
+            </form>
+
+            {% else %}
+
+            <form action="{{url_for('encerra_op')}}" method="post">
+                <input type="hidden" name="id" value="{{row.id}}">
+                <input type="hidden" name="situacao" value="Encerrada">
+                <button type="submit" class="btn btn-success ms-2 encerraOP">Encerrar OP</button>
+            </form>
+            {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

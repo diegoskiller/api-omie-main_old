@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<body background="{{ url_for('static', filename='images/imagemFundo2.png')}}">
+<main class="cards margin-top">
+    <section class="card contact">
+        <div class="icon">
+            <img src="{{ url_for('static', filename='images/list-check.svg')}}" alt="lista de itens">
+        </div>
+        <h3>Lista de itens</h3>
+        <span>Visualizar, acessar e editar itens</span>
+        <a href="{{ url_for('itens')}}"><button>Acessar</button></a>
+    </section>
+    <section class="card shop">
+        <div class="icon">
+            <img src="{{ url_for('static', filename='images/pencil-square.svg')}}" alt="Gerenciamento de ops">
+        </div>
+        <h3>Controle de OPs</h3>
+        <span>Gerenciar ordens de produção</span>
+        <a href="{{ url_for('ordens_producao')}}"><button>Acessar</button></a>
+    </section>
+    <section class="card shop">
+        <div class="icon">
+            <img src="{{ url_for('static', filename='images/lightbulb.svg')}}" alt="Gerenciamento de ops">
+        </div>
+        <h3>Teste Diego</h3>
+        <span>Gerenciar teste diego</span>
+        <a href="{{ url_for('teste_diego')}}"><button>Testar</button></a>
+    </section>
+    <section class="card about">
+        <div class="icon">
+            <img src="{{ url_for('static', filename='images/inboxes.svg')}}" alt="gerenciar estoque">
+        </div>
+        <h3>Controle de estoque</h3>
+        <span>Gerenciamento de estoque</span>
+        <a href="{{ url_for('consulta_estoque')}}"><button>Acessar</button></a>
+    </section>
+</main>
+
+</body>
+{% endblock %}

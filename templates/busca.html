@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} busca de item {% endblock %}
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="p-3">
+                <div style="height: 10vh; width: 100%;">
+                    <div class="container w-50 d-flex justify-content-center align-items-center">
+                        <form method="POST" action="{{url_for('busca')}}" class="input-group">
+                            <input type="search" class="form-control" placeholder="Pesquisar por item" name="search"
+                                aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="submit">Buscar</button>                                
+                                <a href="{{url_for('itens')}}" type="button" class="btn btn-success ms-2">Listar todos</a>
+                                <a href="{{url_for('index')}}" type="button" class="btn btn-success ms-2">Página Inicial</a>
+                            </div>
+                    
+                        </form>
+                    </div>
+                </div>
+                <div class=" mh-50" style="overflow:auto; height: 60vh;">
+                    
+                    <table class="table table-hover table-dark">
+
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Código NCM</th>
+                            <th>Unidade</th>
+                            <th>Alterado por:</th>
+                            <th>Ação</th>
+                        </tr>
+
+
+                        
+                        <tr>
+                            
+                            <td>{{busca.get("codigo")}}</td>
+                            <td>{{busca.get("descricao")}}</td>
+                            <td>{{busca.get("ncm")}}</td>
+                            <td>{{busca.get("unidade")}}</td>
+                            <td>{{busca.get("info").get("uAlt")}}</td>
+                            <td>
+                                <form action="{{ url_for('estrutura') }}" method="post"  class="btn btn-info btn-xs" >
+                                    <button name="item"  value="{{busca.get('codigo')}}" ><img
+                                        src="{{url_for('static', filename='images/card-list.svg')}}" alt=""></button></form>
+                                <a href="update/{{busca.codigo}}" class="editItem btn btn-warning btn-xs" data-bs-toggle="modal"
+                                    data-bs-target="#edit_item_Modal{{busca.codigo}}"><img
+                                        src="{{url_for('static', filename='images/pencil-fill.svg')}}" alt=""></a>
+                                <a href="delete/{{busca.codigo}}" class="btn btn-danger btn-xs"
+                                    onclick="return confirm('Tem certeza que quer deletar este item ?')"><img
+                                        src="{{url_for('static', filename='images/trash3-fill.svg')}}" alt=""></a>
+                            </td>
+
+                        </tr>
+
+                       
+                    </table>
+                        
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+    <div class="input-group mb-3 d-flex justify-content-end">
+        <form method="POST" action="{{url_for('busca')}}" class="input-group w-50">
+            <input type="search" class="form-control  w-25" placeholder="Pesquisar por item" name="search"
+                aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-success ms-1" type="submit">Buscar</button>
+            </div>
+
+        </form>
+    </div>
+    <table class="table table-hover table-info border border-dark">
+
+        <tr class="table-success">
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Código NCM</th>
+            <th>Unidade</th>
+            <th>Alterado por:</th>
+        </tr>
+
+
+        {%for row in busca["produto_servico_cadastro"]%}
+        <tr>
+            <td>{{row.get("codigo")}}</td>
+            <td>{{row.get("descricao")}}</td>
+            <td>{{row.get("ncm")}}</td>
+            <td>{{row.get("unidade")}}</td>
+            <td>{{row.get("info").get("uAlt")}}</td>
+
+        </tr>
+
+        {%endfor%}
+    </table>
+    <table class="table table-striped">
+        <tr class="bg-info">
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Unidade</th>
+        </tr>
+
+        
+        <tbody id="myTable">
+            <td>{{ busca["codigo"] }}</td>
+            <td>{{ busca["descricao"] }}</td>
+            <td>{{ busca["unidade"] }}</td>
+        </tbody>
+    </table> -->
+
+{% endblock %}

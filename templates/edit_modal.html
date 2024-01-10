@@ -1,0 +1,45 @@
+
+{% block body %}
+
+<!-- Editar Item Modal -->
+<div class="modal fade" id="edit_op_modal{{row.id}}" role="dialog" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar OP</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('update_op')}}" method="POST" class="update">
+                    <input type="hidden" name="id" value="{{row.id}}">
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Item:</label>
+                        <input type="text" class="form-control" name="item" value="{{row.item}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Descrição:</label>
+                        <input type="text" class="form-control" name="descricao" value="{{row.descrição}}" required>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">quantidade</label>
+                        <input type="text" class="form-control" name="quantidade" value="{{row.quantidade}}" required>
+                    </div>
+                    
+                    <div class="modal-footer mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

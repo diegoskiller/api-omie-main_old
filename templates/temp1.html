@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} testes temporarios {% endblock %}
+{% block body %}
+
+
+
+<form method="POST" action="{{url_for('cadastro_prod')}}" class="input-group">
+    <input type="search" class="form-control" placeholder="Pesquisar por item" name="item"
+        aria-label="Pesquisar por item" aria-describedby="basic-addon2" autocomplete="off">
+    <div class="input-group-append">
+        <button class="btn btn-danger" type="submit">Consultar item</button>
+    </div>
+</form>
+
+
+
+
+<table class="table table-secondary">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Id-Prod</th>
+        <th scope="col">Tipo do item</th>
+        <th scope="col">Quantidade em estoque</th>
+        <th scope="col">Unidade</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr>
+        <td>{{cadastro.codigo}}</td>
+        <td>{{id_produto}}</td>
+        <td>{{tipo}}</td>
+        <td>{{saldoFisico}}</td>
+        <td>{{cadastro.unidade}}</td>
+        
+        
+        
+      </tr>
+    
+    </tbody>
+  </table>
+  {{cadastro}}<p>
+  <p>--saldo--{{cadastro.codigo}}--saldo--</p>  
+  {{cadastro_saldo}}
+
+
+
+
+  {% endblock %}
